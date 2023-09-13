@@ -1,0 +1,261 @@
+\documentclass[]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\OO}{\mathcal{O}}
+\newcommand{\sslash}{\mathbin{/\mkern-4mu/}}
+\newcommand{\Spec}{\text{Spec}}
+\newcommand{\m}{\mathfrak{m}}
+%opening
+\title{}
+\author{}
+
+\begin{document}
+
+\section{Motivation}
+Mirror symmetry is an enormous area of research. Here we provide motivation from just one perspective, which is Fano classification. Let $X$ be a smooth n-dimensional algebraic variety over $\C$. Suppose we also have a line bundle $L \to X$, with some global sections $s_1, s_2,...,s_m \in \Gamma(X,L)$. Then we can try and write down a map
+\begin{align*}
+	\iota: X &\rightarrow \bP^{m-1}\\
+	x &\rightarrow [s_1(x):s_2(x):...:s_m(x)].
+\end{align*}
+This is well defined as long as there is no $x \in X$ where all the sections vanish; $s_i(x)=0$ for all $i=1,...,m$.
+\begin{defn}
+	A line bundle $L$ over an algebraic variety $X$ is called \emph{very ample} if there exist some global sections $s_1,...,s_m$ of $L$ for which the map $\iota$ defined above is an embedding of $X$ into $\bP^{m-1}$. \vspace{1em}
+	
+	If there exists a natural number $k$ such that $L^{\otimes k}$ is very ample, then we say $L$ is \emph{ample}.
+\end{defn}
+For example, the line bundles $\OO(n) \rightarrow \bP^{m-1}$ (not to be confused with orthogonal groups!) are very ample for all $n\geq 1$.
+\begin{defn}
+	The variety $X$ is \emph{Fano} if $-K_X := \bigwedge^n TX$ is \emph{ample}.	
+\end{defn}
+If $X$ is Fano, then it is projective, since $\bigwedge^n TX$ is very ample, meaning it has some sections which define an embedding $\iota$ of $X$ into projective space. Some examples of Fano varieties include $\bP^{n}$, any degree $d$ projective curve in $\bP^n$ with $d<n+1$, and Grassmannians. Naturally then we can ask \emph{Why study Fano varieties}? 
+\begin{itemize}
+	\item Fano varieties are often the ambient spaces in algebraic geometry. For example, Calabi-Yaus can be cut-out from Fano varieties.
+	\item Fano varieties are special in that there are only finitely many of them in any given dimension.
+\end{itemize}
+\begin{thm}[Koll\'ar-Miyaoka-Mori]
+	Up to \emph{deformation}, there are finitely many Fano varieties in each dimension.
+\end{thm}
+Here $X_1$ and $X_2$ are considered equivalent up to deformation if there exists a flat family $\mathcal{X}\to B$ over an irreducible base $B$ such that $X_1$ and $X_2$ are fibers over some points $b_1, b_2 \in B$. \vspace{1em}
+
+This raises the big question: Can we classify the Fano varieties? The current progress is:
+\begin{itemize}
+	\item In dimension 1, there is just one Fano; $\bP^1$.
+	\item In dimension 2, there are 10, called the del Pezzo surfaces.
+	\item In dimension 3, there are 105, which were classified throughout the 70s and 90s.
+	\item All higher dimensions are yet to be classified.
+\end{itemize}
+In this course, we are also concerned with \emph{mirror symmetries} for Fano varieties. A conjectured mirror symmetry is between $n$-dimensional Fano varieties and Laurent polynomials in $n$-dimensions up to an equivalence called \emph{mutation}. Loosely, we can say
+\begin{defn}
+	A variety $X$ is \emph{mirror} to a polynomial $f$, if you can determine \emph{enumerative info} about $X$ from $f$.
+\end{defn} 
+By enumerative info for $X$, we mean things like Gromov-Witten invariants, quantum cohomology and quantum periods. The mirror symmetry conjecture is that these can be computed in terms of correponding quantities of $f$. For example:
+\begin{defn}
+	Let $f \in \C[x_1^{\pm 1},...,x_n^{\pm 1}]$ be a Laurent polynomial. The \emph{classical period} of $f$ is the quantity
+	\begin{align*}
+		\pi_f(t) &= \int\limits_{(S^1)^n} \frac{1}{1-tf} ~\frac{dx_1}{x_1}...\frac{dx_n}{x_n}\\
+		&= \sum_{k=0}^\infty \frac{c_1(f^k)}{k!}t^k.
+	\end{align*}
+	where $c_1(f^k)$ means the coefficient of the constant term of $f^k$.
+\end{defn}
+The idea therefore, is that mirror symmetry can help us compute hard things in geometry by using easier polynomial data. Then what is the status of this conjecture?
+\begin{itemize}
+	\item Established in dimensions 1 and 2 by checking all cases.
+	\item In dimension 3, all Fanos $X$ have a mirror polynomial $f$, but the classification of other maximally mutable polynomials $f$ is unknown.
+	\item In all dimensions, the symmetry is established for \emph{toric varieties}.
+\end{itemize}
+Toric varieties are Fano varieties which have the form $V\sslash T$ where $V$ is a (complex) vector space and $T=(\C^\ast)^k$, which is called the \emph{algebraic torus}. The double slash $\sslash$ indicates a \emph{geometric invariant theory} quotient, which will be discussed in the first part of the course. Recently, there is a lot of work on extending mirror symmetry to GIT quotients $V\sslash G$ more generally, for $G$ a reductive algebraic group. \vspace{1em}
+
+As we will see, toric varieties are very nice to work with. This is because they are extremely computable. Essentially, there is a dictionary between the geometry of a toric variety $X$ and the combintorics of a polytope $P$ corresponding to $X$. The basic question then, is can a similar correspondence be generalised to other Fano varieties? What should play the role of the polytope? Mirror symmetry answers this question: $X$ corresponds to $f$, which has a \emph{Newton polytope} with some additional coefficient data. \vspace{1em}
+
+Exercises:
+\begin{enumerate}
+	\item Show that a degree $d$ hypersurface in $\bP^n$ is Fano for $d<n+1$.
+	\item Find a closed formula for the classical period of $f(x,y)=x+y+\frac{1}{xy}$, and find a differential equation that it satisfies.
+\end{enumerate}
+\pagebreak
+
+\section{Quotients in Algebraic Geometry}
+\begin{defn}
+	An \emph{algebraic} group is a group which is also an algebraic variety. An \emph{action} of an algebraic group $G$ on a variety $X$ is a morphism 
+	\begin{align*}
+		G\times X &\to X\\
+		(g, x) &\to g\cdot x
+	\end{align*}
+	such that for all $g,g' \in G$ and $x\in X$, we have $(gg')\cdot x = g\cdot (g'\cdot x)$ and $e\cdot x = x$.
+\end{defn}
+For example: $\C^\ast$, $GL(n)$ and $SL(n)$. \vspace{1em}
+
+\begin{defn}
+	Given an action of $G$ on $X$ and some $x\in X$, the \emph{orbit} of $x$ is
+	\begin{equation}
+		G\cdot x = \{g\cdot x, ~|~g\in G\}.
+	\end{equation}
+	The \emph{stabiliser} of $x$ is 
+	\begin{equation}
+		G_x = \{g\in G \text{s.t.} g\cdot x = x\}.
+	\end{equation}
+	Note that $G_x$ is a closed subgroup of $G$. 
+\end{defn}
+Example: Let $T=\C^\ast$ and $V=\C^2$. Define an action of $T$ on $V$ by $\lambda\cdot(z_1,z_2) = (\lambda z_1, \lambda z_2)$ for all $\lambda \in T$, $(z_1,z_2)\in V$. Then the orbit of $(z_1,z_2)\neq(0,0)$ is the line through $(z_1,z_2)$, except the origin. The stabilizer is $\{1\}$. If $(z_1,z_2)=(0,0)$ then the orbit is $\{(0,0)\}$ and the stabilizer is all of $T$. Notice that $(0,0)$ is in the closure of $G\cdot z$ for all $z\in \C^2$. 
+\begin{prop}
+	For any $G$, $X$ and $x\in X$, 
+	\begin{itemize}
+		\item The orbit $G\cdot x$ is locally closed and a smooth subvariety of $X$.
+		\item Each of its irreducible components has dimension $\dim(G)-\dim(G_x)$.
+		\item The closure of $G\cdot x$ is a union of $G\cdot x$ and orbits of strictly smaller dimension.
+	\end{itemize}
+	The last point implies that minimal dimension orbits must be closed, and $\overline{G\cdot x}$ always contains a closed orbit.
+\end{prop}
+\begin{defn}
+	The action of a group $G$ is called \emph{closed} if every orbit of $G$ is closed.
+\end{defn}
+\begin{defn}
+	A \emph{linear algebraic group} is a closed subgroup of $GL(n)$.
+\end{defn}
+Goal: If we have an action $G\circlearrowright X$, we want to build some quotient $X/G$ in an algebraio-geometric way. As a naive attempt we can just take the quotient as topological spaces. Consider the action of $\C^\ast$ on $\C^2$ from before. If we endow the set $\C^2/\C^\ast$ with the quotient topology, then since $[(0,0)]$ is in every open neighbourhood of every other point (as we can always take a sequence of $\lambda_i\in\C^\ast$ approaching zero), this quotient is not even Hausdorff. \vspace{1em}
+
+To solve this, we essentially want to delete the origin, and obtain $\left(\C^2 - \{(0,0)\}\right)/\C^\ast = \bP^1$. The putative quotient $Y$ we want to define must have the following properties:
+\begin{itemize}
+	\item There exists a surjection $p:X\to Y$ which is $G$-invariant.
+	\item $Y$ is separated.
+	\item $Y$ satisfies the following universal property: if $f:X\to Z$ is $G$ invariant, then it factors uniquely through $p$. That is:
+	\[\begin{tikzcd}
+		X & Y \\
+		& Z \\
+		\\
+		\\
+		& {}
+		\arrow["p", from=1-1, to=1-2]
+		\arrow["f"', from=1-1, to=2-2]
+		\arrow[dashed, from=1-2, to=2-2]
+	\end{tikzcd}\] 
+	\item For all $U$ open, $\OO_Y(U) \cong \OO_X(p^{-1}(U))^G$, where the superscript denotes $G$-invariant functions.
+	\item If $Z\subset X$ is closed and $G$-invariant, then $p(Z)$ is closed. If $Z_1, Z_2$ are disjoint and closed then $p(Z_1)$ and $p(Z_2)$ are disjoint.
+\end{itemize}
+If $p$ satisfies all these properties, we say it is a \emph{good quotient}. Moving forward, we will talk about affine and projective GIT quotients, symplectic reduction, and comparison between these two methods of constructing good quotients. \vspace{1em}
+
+We can also consider a geometric quotient, which is a good quotient whose points are orbits of $G\circlearrowright X$. 
+
+Remark: The properties of being good or geometric are local on the base, meaning that $p:X\to Y$ is good or geometric if and only if there exists an open cover of $Y$ with the restrictions of $p$ being good or geometric.
+
+\begin{lemma}
+	If $p:X\to Y$ is good, then it is categorical.
+\end{lemma}
+\begin{proof}
+	Suppose $g:X\to Z$ is another $H$ invariant morphism and $p:X\to Y$ is good. Then we want to define $h:Y\to Z$ such that $p\circ h = g$. Consider $g(p^{-1}(y))$ for some $y\in Y$, which we claim is a singleton set. Suppose for contradiction that there are $z_1\neq z_2 \in g(p^{-1}(y))$. Then $g^{-1}(z_1)\cap g^{-1}(z_2) = \emptyset$, and these are closed, G-invariant sets because $g$ is continuous and $G$-invariant. Hence, by the hypothesis that $p$ is good we have:
+	\begin{equation}
+		p(g^{-1}(z_1))\cap p(g^{-1}(z_2)) = \emptyset.
+	\end{equation}
+	However, we must also have that $y\in p(g^{-1}(z_i)), i=1,2$ because $z_i \in g(p^{-1}(y))$; hence we have a contradiction and must have that $g(p^{-1}(y))$ is a singleton. \vspace{1em}
+	
+	Therefore, we can define a map $h:Y\to Z$ by $y \to g(p^{-1}(y))$ and it is well-defined and clearly $p\circ h = g$. It remains to show that this is a morphism of schemes (namely we need it to be locally induced by ring morphisms $\OO_X \to \OO_Y$). Let $\{U_i\}$ be a finite open affine cover of $Z$. Let $W_i = X - g^{-1}(U_i) = g(U_i)^c$. Then $U_i$ being open implies that $g^{-1}(U_i)$ is open and hence $W_i$ is closed. Similarly, $g$ being $G$-invariant implies $W_i$ is also. Finally, since $U_i$ is a cover, $\bigcap W_i = \emptyset$. Thus by goodness of $p$ we have that $p(W_i)$ are all closed and 
+	\begin{equation}
+		\label{e:Wi-disjoint}
+		\bigcap p(W_i) = \emptyset.
+	\end{equation}
+	Define $V_i = Y-p(W_i)=p(W_i)^c$ Then the $V_i$ are an open cover of $Y$ by equation \ref{e:Wi-disjoint}. Note further that $p^{-1}(V_i)\subset g^{-1}(U_i)$. Thus we have a sequence of maps
+	\begin{equation}
+		\OO_Z(U_i) \xrightarrow \OO_X(g^{-1}(U_i))^G \xrightarrow{\text{res}|_{p^{-1}(V_i)}} \OO_X(p^{-1}(V_i))^G \cong_{p \text{ good}} \OO_Y(V_i).
+	\end{equation}
+	The $G$-invariance on the second ring comes from the invariance of $g$. The last isomorphism is one of the hypothesis conditions of $p$ being good. Thus since $U_i$ and $V_i$ are affine, this defines a local morphism $h_i:V_i\to U_i$, and it suffices to verify that $h|_{V_i} = h$. 
+\end{proof}
+\begin{prop}
+	Let $p:X\to Y$ be a good quotient. Then 
+	\begin{enumerate}
+		\item $\overline{G\cdot x_1} \cap \overline{G\cdot x_2} \neq \emptyset \iff  p(x_1)=p(x_2)$.
+		\item For alL $y\in Y$, there exists a unique closed orbit in $p^{-1}(y)$.
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	1) Suppose $\overline{G\cdot x_1} \cap \overline{G\cdot x_2} \neq \emptyset$. Since $p$ is continuous and constant on orbits, it is constant on orbit closures and hence $p(\overline{G\cdot x_1}) = p(\overline{G\cdot x_2})$ and in particular $p(x_1)=p(x_2)$. On the other hand if $\overline{G\cdot x_1} \cap \overline{G\cdot x_2} = \emptyset$, then since $p$ is good, the image of each orbit is disjoint. \vspace{1em}
+	
+	2) Suppose there exist two closed orbits in $p^{-1}(y)$. If they are not equal, then again since $p$ is continuous and constant on orbits they must be disjoint and hence their image is disjoint by goodness. However they must each contain $y$ so this is a contradiction. (Existence was not given in class, maybe it is obvious?)
+\end{proof}
+Now, let us construct good quotients for affine varieties.
+\subsection{Affine GIT Quotient}
+Suppose we have the action of a group $G$ on an affine variety $X$. Then $X=\Spec(\OO_X)$ by definition, and we want our quotient to be good; so we want it to have functions $\OO_X^G$. Thus the idea is to let our quotient be $\Spec(\OO_X^G)$. However $\OO_X^G$ is not finitely generated in general, so we will restrict ourselves to \emph{reductive} groups.
+\begin{defn}
+	Let $G$ be a linear algebraic group.
+	\begin{itemize}
+		\item We say $G$ is \emph{reductive} if every smooth connected unipotent normal subgroup of $G$ is trivial.
+		\item We say $G$ is \emph{linearly reductive} if, for every representation $G\to GL(V)$ and every non-zero fixed point $v\in V$, there exists a homogeneous $G$-invariant degree-1 polynomial $f$ on $V$ such that $f(V)\neq 0$.
+		\item We say $G$ is \emph{geometrically reductive} if, for every representation $G\to GL(V)$ and every non-zero fixed point $v\in V$, there exists a homogeneous $G$-invariant polynomial $f$ on $V$ such that $f(V) \neq 0$.
+	\end{itemize}
+\end{defn}
+\begin{thm}
+	The three properties above are equivalent over $\C$. 
+\end{thm}
+For example, $GL(n,\C)$, $SL(n,\C)$ and $PGL(n,\C)$ are reductive.
+\begin{thm}[Nagata's Theorem]
+	Let $G$ be geometrically reductive acting on a finitely generated $\C$-algebra $R$. Then $R^G$ is finitely generated. 
+\end{thm}
+\begin{lemma}
+	Let $G$ be a geometrically reductive group acting on an affine variety $X$. Let $Z_1$ and $Z_2$ be two closed, $G$-invariant disjoint subsets of $X$. Then there exists a $G$-invariant function $\psi\in\OO_X^G$ such that $\psi(Z_1)=1$ and $\psi(Z_2)=0$.
+\end{lemma}
+\begin{proof}
+	Firstly
+	\begin{equation}
+		\langle 1 \rangle = I(\emptyset) = I(Z_1\cap Z_2) = I(Z_1)+I(Z_2),
+\end{equation}
+therefore $1 = f_1 + f_2$ for some $f_1,f_2$ with $f_i(Z_j)=\delta_{ij}$. Claim: (c.f. Hoskins) The subspace spanned by $\{g\cdot f, ~|~ g\in G\} \subset \OO_X$ is $G$-invariant and finite dimensional. Therefore we can pick a basis $h_1,..,h_n$, and because $G$ acts on all of the $h_i$, we get an induced action of $G$ on $\C^n$ such that the map
+\begin{align*}
+	\phi:X &\to \C^n\\
+	x&\to (h_i(x))
+\end{align*}
+is $G$-equivariant, meaning $\phi(g\cdot x) = g\phi(x)$.  Note then that $\phi(Z_1)=0$ and $\Phi(Z_2)\neq 0$, and define $v=\Phi(Z_2) \in \C^n$. \vspace{1em}
+
+Since $\phi$ is $G$-equivariant, $v$ is fixed by the action of $G$. Then by the hypothesis of geometric reductivity, there exists some $G$-invariant homogenous $f_0$ such that $f_0(v)\neq 0$ and $f_0(0)=0$. Finally, let 
+\begin{equation}
+	\psi = \frac{1}{f_0(v)}f_0\circ \phi.
+\end{equation}
+\end{proof}
+
+\begin{defn}
+	The \emph{affine GIT quotient} of an affine variety $X$ under reductive group $G$, denoted $X\sslash G$ is $\Spec(\OO_X^G)$.
+\end{defn}
+\begin{thm}
+	Let $X$ be an affine variety and $G$ a reductive group acting on $X$. Then $p:X\to Y=\Spec(\OO_X^G)$ is a good quotient.
+\end{thm}
+\begin{proof}
+	First we show $p$ is $G$-invariant. Suppose for contradiction there exist $x\in X$, $g\in G$ such that $p(x) \neq p(g\cdot x)$. Since $Y$ is affine, there exists an $x\in \OO_Y$ such that $f(x)\neq f(g\cdot x)$. However $\OO_Y = \OO_X^G$ by definition, so $f$ must be $G$ invariant, giving a contradiction. \vspace{1em}
+	
+	Next we show $p$ is surjective. Let $y\in Y$ and let $\langle f_1,...,f_n\rangle$ be the ideal defining $y$. Let $\m$ be the maximal ideal containing $\langle f_1,...,f_n\rangle$. The point corresponding to $\m$ in $X$ maps to $y$ under $p$. \vspace{1em}
+	
+	Now let $U\subset Y$ be open. We want to show $\OO_Y(U)\cong \OO_X(p^{-1}(U))^G$; it suffices to show this for $U=D_f^Y$ for any $f\in \OO_Y$.
+	\begin{align*}
+		\OO_Y(D_f^Y) &= (\OO_Y)_f\\
+		&= [\OO_X(X)^G]_F\\
+		& =[\OO_X(X)_f]^G\\
+		&=[\OO_X(D_f^X)]^G\\
+		&=\OO_X(p^{-1}(D_f^Y))^G
+	\end{align*} 
+	Let $Z_1,Z_2$ be $G$-invariant closed disjoint subsets. By the lemma, there exists $\psi \in \OO_X^G$ with $\psi(Z_1)=0$ and $\psi(Z_2)=1$. Then $\overline{p(Z_1)}\cap\overline{p(Z_2)}=\emptyset$, because there is a $G$-invariant function which separates them. This turns out to be equivalent to the topological condition for goodness, that $p(Z_1)\cap p(Z_2)=\emptyset$. To prove this, it suffices to prove that if $Z$ is closed and $G$-invariant then $p(Z)$ is closed. \vspace{1em}
+	
+	Suppose $Z$ is closed and $G$-invariant. For contradiction, suppose there exists $g\in \overline{p(Z)}-p(Z)$. Then $Z$ and $p^{-1}(y)$ are both closed and $G$-invariant, so 
+	\begin{equation}
+		\overline{p(Z)}\cap\overline{p(p^{-1}(y)} = \emptyset.
+	\end{equation}
+however $y$ must be in this intersection, giving a contradiction.
+\end{proof}
+\begin{prop}
+	If the action of $G$ is closed then $X\sslash G$ is a geometric quotient.
+\end{prop}
+This GIT construction separates orbits as much as possible while still being good.
+
+Recall the example of $\C^\ast \circlearrowright \C^2$ by scaling. We saw that $(0,0)$ is in the closure of every orbit. Hence $\C^2/\C^\ast$ is just one point. This is the same as saying that all the $\C^\ast$ invariants in $\C[x_1,x_2]$ are just the constants. Projective GIT will allow us to loosen the definition of $G$-invariance and get that $\C^2\sslash \C^\ast = \P^1$. Recall, if $f$ is homogeneous of degree $k$ then $f(\lambda x, \lambda y)= \lambda^k f(x,y)$, so $f$ is projectively invariant.
+
+
+\end{document}
