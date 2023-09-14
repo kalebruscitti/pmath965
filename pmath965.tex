@@ -1,22 +1,22 @@
-\documentclass[]{article}
-
+\documentclass{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{tikz-cd}
 \usepackage{quiver}
-
 \newtheorem{thm}{Theorem}
 \newtheorem{prop}{Proposition}
 \newtheorem{lemma}{Lemma}
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
-
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\OO}{\mathcal{O}}
 \newcommand{\sslash}{\mathbin{/\mkern-4mu/}}
 \newcommand{\Spec}{\text{Spec}}
+\newcommand{\Proj}{\text{Proj}}
 \newcommand{\m}{\mathfrak{m}}
 %opening
 \title{}
@@ -255,7 +255,86 @@ however $y$ must be in this intersection, giving a contradiction.
 \end{prop}
 This GIT construction separates orbits as much as possible while still being good.
 
-Recall the example of $\C^\ast \circlearrowright \C^2$ by scaling. We saw that $(0,0)$ is in the closure of every orbit. Hence $\C^2/\C^\ast$ is just one point. This is the same as saying that all the $\C^\ast$ invariants in $\C[x_1,x_2]$ are just the constants. Projective GIT will allow us to loosen the definition of $G$-invariance and get that $\C^2\sslash \C^\ast = \P^1$. Recall, if $f$ is homogeneous of degree $k$ then $f(\lambda x, \lambda y)= \lambda^k f(x,y)$, so $f$ is projectively invariant.
+Example: Consider $\C^\ast \circlearrowright \C^2$ by $t(x,y)=(tx, t^{-1}y)$. Then the affine GIT quotient is given by $\C^2\sslash \C^\ast = \Spec(\C[x,y]^G)$, and $\C[x,y]^G = \C[xy]\cong \C[z]$. Therefore $\C^2\sslash \C^\ast = \C$. The quotient map is $(x,y)\to xy$ and the orbits come in three types:
+\begin{enumerate}
+	\item The orbit of the origin is $G\cdot(0,0)=(0,0)$.
+	\item The orbits of $(x,0)$ and $(0,y)$, for $x,y\neq 0$ are the $x$ and $y$ axes in $\C^2$.
+	\item The remaining orbits have the form $G\cdot(x,y) = \{(z_1,z_2) ~|~ z_1z_2 = \lambda\}$ for some $\lambda$, which are conics.
+\end{enumerate}
+The GIT quotient sends the type 1 and 2 orbits to the same point, $0\in \C$, so this is not a geometric quotient. \vspace{1em}
 
+Example: Consider the additive complex group $G_a = (\C,+)$. Let it act on $\C^4$ by embedding it into $GL(4,\C)$ by the map
+\begin{equation}
+	s \to \begin{pmatrix}
+		1 & s & 0 & 0\\
+		0 & 1 & 0 & 0\\
+		0 & 0 & 1 & s\\
+		0 & 0 & 0 & 1\\
+	\end{pmatrix}.
+\end{equation}
+$G_a$ is not reductive, but in this case the ring of invariants is still finitely generated. Note however that in our proof that the GIT quotient is surjective, we again used that $G$ is reductive. In this case, we will not have a good quotient. If $f$ is invariant, it must send
+\begin{align*}
+	x_1 &\to x_2 & x_2 &\to sx_1 + x_2\\
+	x_3 &\to x_3 & x_4 &\to sx_3 + x_4\\.
+\end{align*}
+So $x_1,x_3$ are invariant, and $x_1x_4-x_2x_3$ is invariant. It turns out these three generate all the invariants, and so $\OO_{\C^4}^{G_a} = \C[x_1,x_3,x_1x_4-x_2x_3]$. Furthermore, $\Spec(\C[x_1,x_3,x_1x_4-x_2x_3]) = \C^3$. The quotient map is 
+\begin{equation}
+	(x_1,x_2,x_3,x_4) \to (x_1,x_3,x_1x_4-x_2x_3),
+\end{equation}
+which is not surjective as $(0,0,\lambda)$ is not in its image for $\lambda\neq 0$.
 
+\vspace{1em}
+
+\subsection{Projective GIT Quotient}
+
+Recall the example of $\C^\ast \circlearrowright \C^2$ by scaling. We saw that $(0,0)$ is in the closure of every orbit. Hence $\C^2/\C^\ast$ is just one point. This is the same as saying that all the $\C^\ast$ invariants in $\C[x_1,x_2]$ are just the constants. Projective GIT will allow us to loosen the definition of $G$-invariance and get that $\C^2\sslash \C^\ast = \bP^1$. Recall, if $f$ is homogeneous of degree $k$ then $f(\lambda x, \lambda y)= \lambda^k f(x,y)$, so $f$ is projectively invariant. \vspace{1em}
+
+Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of $X$ being projective in two ways, either there is an embedding $X\subset \bP^k$, or $X$ is equipped with an ample line bundle $L\to X$. We will swap between these two pictures as convenient. The idea of projective GIT is to replace $\Spec$ with $\Proj$. If $R$ is the graded ring with $X=\Proj(R)$, then we want to define $X\sslash G$ to be $\Proj(R^G)$. To make sense of this in the $(X,L)$ perspective, we need a $G$-action on the sections of the bundle $L$.
+
+\begin{defn}
+	Let $X$ be an algebraic variety and $\pi:L\to X$ a line bundle. Suppose $G\circlearrowright X$ via $\sigma:G\times X\to X$. Then a $G$-\emph{linearisation} of $L$ is a lift of $\sigma$ to $\overline{\sigma}:G\times L\to L$ which commutes with $\sigma$ under the projection $\pi$; $\sigma(g,\pi(s))=\pi(\overline{\sigma}(g,s))$ for all $s\in\Gamma(X,L)$, and such that the $0$ section is invariant.
+\end{defn}
+	Remark: A linearisation defines a linear map between fibres of $L$, $\overline{\sigma}:L_x\to L_{g\cdot x}$. \vspace{1em}
+	
+	Example: Let $X=\C^n$ and $L=\C\times \C^n$ be the trivial bundle. Then a linearisation of $L$ is a character in $\chi(G)$. If we fix $\theta \in \chi(G)$, then the linearisation of $L$ is 
+	\begin{equation}
+		g\cdot(a,v) = (\theta(g)a,g\cdot v).
+	\end{equation}
+	This defines an action on the sections of $L$; for $U\subset X$ open and $s\in\Gamma(U,L)$, let $(g\cdot s)(x) = \theta(g)s(g^{-1}x)$.
+	\vspace{1em}
+	
+	In the other perspective, when $X\subset \bP^k$ explicitly, then a linearisation is a way to think of $G\circlearrowright X$ via an embedding $G\hookrightarrow GL(k+1,\C) \circlearrowright\bP^k$. In particular, if $L$ is very ample, then $X\hookrightarrow \bP(\Gamma(X,L)^\vee) = \bP^k$. Then these two notions of linearisation agree. If $X = \Proj(R)$, then a linearisation is an action $G\circlearrowright R$ which preserves the grading. \vspace{1em}
+	
+	In any case, we can now define projective GIT.
+	\begin{defn}
+		The \emph{projective GIT quotient} of $(X,L)$ by $G$, with respect to a given linearisation, is 
+		\begin{equation}
+			X\sslash G = \Proj\left(\bigoplus_{r\geq 0} \Gamma(X,L^r)^G\right)
+		\end{equation}
+		with the quotient map induced by the injection $R^G\hookrightarrow R$.
+	\end{defn}
+	Example: We construct $\bP^n$ as a GIT quotient of $X=\C^{n+1}$ by $\C^\ast$ under scaling. A linearisation is given by a character of $\C^\ast$. 
+	\begin{align*}
+		\chi(\C^\ast) &\cong \mathbb{Z}\\
+		(\lambda\to\lambda^a) &\leftrightarrow a
+	\end{align*}
+	Let $a\in \mathbb{Z}$ be a character, then $\C^\ast$ acts on the trivial line bundle $L$ over $\C^{n+1}$ by $\lambda \cdot s(x) = \lambda^a s(x)$. We have that $\Gamma(\C^{n+1}, L^k) = \C[x_0,...,x_n]$. If we want an element $f$ to be $\C^\ast$ invariant, we need
+	\begin{equation}
+		\label{ex-inv-cond}
+		t\cdot f(x_0,...,x_n) = t^a f(t^{-1}x_0,...,t^{-1}x_n) = f(x_0,...,x_n).
+	\end{equation}
+	If $a=1$ then equation \ref{ex-inv-cond} exactly means that $f$ is a degree-k homogenous polynomial. Then 
+	$$X\sslash G = \Proj(\bigoplus_{k\geq 0} \text{degree k homogenous polynomials}) = \bP^n.$$
+	If $a=0$, then equation \ref{ex-inv-cond} is only solved by constants. In this case, $X\sslash G$ has only one point and we recover the affine GIT quotient. \vspace{1em}
+	
+	If $a<0$ then equation \ref{ex-inv-cond} has no solutions and the quotient is the empty set. Finally, the case with $a>1 \in \mathbb{N}$ is left as an exercise. \vspace{1em}
+	
+	We can also think of $\C^{n+1}$ as $\Proj\left(\C[x_0,...,x_n,y]\right)$, with the grading that lets $x_i$ have degree 0 and $y$ have degree 1. Then $\C^\ast \circlearrowright \C^{n+1}$ by $\lambda\cdot (x_0,...,x_n,y) = (\lambda x_0,...,\lambda x_n, \lambda^{-a}y)$ for $a\in \chi(\C^\ast)$. The quotient in each case works out exactly the same as above. \vspace{1em}
+	
+	Let us try to get an intuitive sense for $X\sslash G$. Suppose that $L$ is very ample. Suppose further that some sections $s_0,...,s_n$ generate the $G$-invariant sections in all degrees. Then the Proj construction is essentially doing
+	\begin{align*}
+		X &\to \bP^n\\
+		x&\to [s_0(x):...:s_n(x)].
+	\end{align*}
+	This is defined where not all of the $s_i(x)$ vanish; the image is $X\sslash G$, which contains all the points $x$ that have some non-vanishing $G$-invariant section.
 \end{document}
