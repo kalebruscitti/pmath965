@@ -337,4 +337,59 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 		x&\to [s_0(x):...:s_n(x)].
 	\end{align*}
 	This is defined where not all of the $s_i(x)$ vanish; the image is $X\sslash G$, which contains all the points $x$ that have some non-vanishing $G$-invariant section.
+	
+	\begin{defn}
+		A point $x\in X$ is $L$-\emph{semistable} for $(X,L)$ If $\{y\in X ~|~ s(y)\neq 0\}$ is affine and there exists a $G$-invariant section $s$ of $L^r$, for some $r$ such that $s(x)\neq0$. \vspace{1em}
+		
+		A point which is not semistable is called unstable. The set of semistable points is denoted $X^{ss}(L)$, it is Zariski open and $G$-invariant.
+	\end{defn}
+	Remark: If $L$ is ample then $\{y\in X ~|~ s(y)\neq 0\}$ is always affine. \vspace{1em}
+	
+	\begin{defn}
+		A semistable point $x\in X^{ss}$ is \emph{stable} if there exists some $s\in\Gamma(X,L^k)^G$ such that $s(x)\neq 0$ and the action $G$ on $Y=\{y\in X ~|~ s(y)\neq 0\}$ is closed, $Y$ is affine and the stabiliser of $x$ is finite. If the stabiliser is not finite, $x$ is called \emph{polystable}.
+	\end{defn}
+	
+	The set of polystable points is a disjoint union of open sets, each of which consists of polystable orbits of a fixed dimension. \vspace{1em}
+	
+	Exercise: Suppose $L$ is very ample and we have an embedding $X\subset \bP^k$ for some $k$. Show that the following notions of semistable and stable agree with the definitions above.
+	\begin{itemize}
+		\item $x \in X$ is semi-stable if there exists a $G$-invariant homogeneous polynomial $f$ with $f(x)\neq0$.
+		\item $x\in X$ is stable if $G\cdot x$ is finite and there exists a $G$-invariant homogeneous polynomial with $G\cdot x$ closed in $D_f$.
+	\end{itemize}
+	
+	\begin{thm}
+		There is a $G$-invariant morphism $$p:X^{ss}(L)\to X\sslash G$$ such that $p$ is a good quotient and $X\sslash G$ is quasi-projective. If $L$ is ample, $X\sslash G$ is projective.
+	\end{thm}
+	\begin{proof}
+		We prove for $L$ very ample. Write $X=V(I)\subset\bP^K$, where $I\subset$ some homogeneous ideal. Then let $R=\C[x_0:...:x_n]/I$ such that $X\sslash G = \Proj(R^G)$. The inclusion $R^G\hookrightarrow R$ induces a rational map $\Proj(R)\to \Proj(R^G)$, well-defined where points in $\Proj(R)$ don't get mapped into points containing the irrelevant ideal. That is to say, well defined away from the \emph{null cone}
+		\begin{equation}
+			N_{R^G}(X):=\{x\in X ~|~ f(x)=0, ~\forall f\in R^G\}.
+		\end{equation}
+		Thus the map is well defined on
+		\begin{equation*}
+			X^{ss} = X-N_{R^G}(X)\to \Proj(R^G).
+		\end{equation*}
+		Let $f\in R^G$, let $Y_f$ be the affine open of $f$ in $Y:=X\sslash G$. Then $X_f$ is the affine open set in $X^{ss}$ equal to $\Spec((R_f)_0)$, and $Y_f$ is the affine open equal to $\Spec([(R^G)_f]_0)$ and the ring map
+		\begin{equation*}
+			[(R^G)_f]_0 = [(R_f)_0]^G \hookrightarrow (R_f)_0
+		\end{equation*}
+		induces a map $X_f\to Y_f$. This map is exactly the affine GIT quotient which we proved has the required properties. Since being a good quotient is local on the base, being local on the distinguished affines implies that the quotient must be good everywhere. 
+	\end{proof}
+
+	The next question is to understand when $X\sslash G$ will be a geometric quotient.
+	\begin{defn}
+		Let $G\cdot x_1$ and $G\cdot x_2$ be semistable orbits. Then we say that $x_1$ and $x_2$ are GIT equivalent if either of the following equivalent things happen:
+		\begin{itemize}
+			\item $\overline{G\cdot x_1}\cap\overline{G\cdot x_2}\cap X^{ss} = \emptyset$.
+			\item $x_1$ and $x_2$ map to the same point in $X\sslash G$.
+		\end{itemize}
+	\end{defn}
+
+	\begin{prop}[c.f. Hoskins]
+		$x$ is stable if and only if $G\cdot x$ is closed in $X^{ss}$ and $G_x$ is finite.
+	\end{prop}
+	
+	\begin{thm}
+		The restriction of $p:X^{ss}(L)\to X\sslash G$ to $p:X^s(L)\to X^s(L)\sslash G$ is a geometric quotient.
+	\end{thm}
 \end{document}

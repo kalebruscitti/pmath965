@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.9.26)  13 SEP 2023 22:26
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2021.9.26)  16 SEP 2023 21:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -708,7 +708,7 @@ LaTeX Font Info:    Trying to load font information for U+euf on input line 235
  (d:/texlive/2021/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 ) [7]
-[8] [9] [10] [11] (./pmath965.aux) ) 
+[8] [9] [10] [11] [12] (./pmath965.aux) ) 
 Here is how much of TeX's memory you used:
  18026 strings out of 476493
  428411 string characters out of 5820669
@@ -718,4 +718,4 @@ Here is how much of TeX's memory you used:
  1348 hyphenation exceptions out of 8191
  116i,14n,122p,656b,1029s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on pmath965.pdf (11 pages).
+Output written on pmath965.pdf (12 pages).
