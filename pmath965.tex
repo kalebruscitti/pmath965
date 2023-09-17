@@ -4,13 +4,21 @@
 \usepackage{amsthm}
 \usepackage{tikz-cd}
 \usepackage{quiver}
-\newtheorem{thm}{Theorem}
-\newtheorem{prop}{Proposition}
-\newtheorem{lemma}{Lemma}
+\usepackage[]{mdframed}
+\usepackage[a4paper, margin=1in]{geometry}
+
+%amsthm
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
 \theoremstyle{definition}
-\newtheorem{defn}{Definition}
-\usepackage{xeCJK}
-\setCJKmainfont{SimSun}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{exercise}[theorem]{Exercise}
+\numberwithin{theorem}{section}
+
+
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\OO}{\mathcal{O}}
@@ -22,8 +30,35 @@
 \title{}
 \author{}
 
+\newenvironment{thm}{
+\begin{mdframed}
+	\vspace{-0.5em}
+	\begin{theorem}
+}{
+	\end{theorem}
+\end{mdframed}
+}
+
+\newenvironment{defn}{
+	\begin{mdframed}
+		\vspace{-0.5em}
+		\begin{definition}
+		}{
+		\end{definition}
+	\end{mdframed}
+}
+
+
+
 \begin{document}
 
+
+\centerline{\Large{PMATH 965: Mirror Symmetry for GIT Quotients} \vspace{1em}}
+\small{
+\noindent Content by Elana Kalashnikov \\
+\noindent Typeset by Kaleb Ruscitti\\
+\noindent Last updated: \today \vspace{1em}
+}
 \section{Motivation}
 Mirror symmetry is an enormous area of research. Here we provide motivation from just one perspective, which is Fano classification. Let $X$ be a smooth n-dimensional algebraic variety over $\C$. Suppose we also have a line bundle $L \to X$, with some global sections $s_1, s_2,...,s_m \in \Gamma(X,L)$. Then we can try and write down a map
 \begin{align*}
@@ -80,11 +115,13 @@ Toric varieties are Fano varieties which have the form $V\sslash T$ where $V$ is
 
 As we will see, toric varieties are very nice to work with. This is because they are extremely computable. Essentially, there is a dictionary between the geometry of a toric variety $X$ and the combintorics of a polytope $P$ corresponding to $X$. The basic question then, is can a similar correspondence be generalised to other Fano varieties? What should play the role of the polytope? Mirror symmetry answers this question: $X$ corresponds to $f$, which has a \emph{Newton polytope} with some additional coefficient data. \vspace{1em}
 
-Exercises:
-\begin{enumerate}
-	\item Show that a degree $d$ hypersurface in $\bP^n$ is Fano for $d<n+1$.
-	\item Find a closed formula for the classical period of $f(x,y)=x+y+\frac{1}{xy}$, and find a differential equation that it satisfies.
-\end{enumerate}
+\begin{exercise}
+	\begin{enumerate}
+		\item Show that a degree $d$ hypersurface in $\bP^n$ is Fano for $d<n+1$.
+		\item Find a closed formula for the classical period of $f(x,y)=x+y+\frac{1}{xy}$, and find a differential equation that it satisfies.
+	\end{enumerate}
+\end{exercise}
+
 \pagebreak
 
 \section{Quotients in Algebraic Geometry}
@@ -149,7 +186,9 @@ If $p$ satisfies all these properties, we say it is a \emph{good quotient}. Movi
 
 We can also consider a geometric quotient, which is a good quotient whose points are orbits of $G\circlearrowright X$. 
 
-Remark: The properties of being good or geometric are local on the base, meaning that $p:X\to Y$ is good or geometric if and only if there exists an open cover of $Y$ with the restrictions of $p$ being good or geometric.
+\begin{remark}
+	The properties of being good or geometric are local on the base, meaning that $p:X\to Y$ is good or geometric if and only if there exists an open cover of $Y$ with the restrictions of $p$ being good or geometric.
+\end{remark}
 
 \begin{lemma}
 	If $p:X\to Y$ is good, then it is categorical.
@@ -185,6 +224,8 @@ Remark: The properties of being good or geometric are local on the base, meaning
 	2) Suppose there exist two closed orbits in $p^{-1}(y)$. If they are not equal, then again since $p$ is continuous and constant on orbits they must be disjoint and hence their image is disjoint by goodness. However they must each contain $y$ so this is a contradiction. (Existence was not given in class, maybe it is obvious?)
 \end{proof}
 Now, let us construct good quotients for affine varieties.
+
+\pagebreak
 \subsection{Affine GIT Quotient}
 Suppose we have the action of a group $G$ on an affine variety $X$. Then $X=\Spec(\OO_X)$ by definition, and we want our quotient to be good; so we want it to have functions $\OO_X^G$. Thus the idea is to let our quotient be $\Spec(\OO_X^G)$. However $\OO_X^G$ is not finitely generated in general, so we will restrict ourselves to \emph{reductive} groups.
 \begin{defn}
@@ -282,8 +323,8 @@ So $x_1,x_3$ are invariant, and $x_1x_4-x_2x_3$ is invariant. It turns out these
 	(x_1,x_2,x_3,x_4) \to (x_1,x_3,x_1x_4-x_2x_3),
 \end{equation}
 which is not surjective as $(0,0,\lambda)$ is not in its image for $\lambda\neq 0$.
+\pagebreak
 
-\vspace{1em}
 
 \subsection{Projective GIT Quotient}
 
@@ -294,7 +335,9 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 \begin{defn}
 	Let $X$ be an algebraic variety and $\pi:L\to X$ a line bundle. Suppose $G\circlearrowright X$ via $\sigma:G\times X\to X$. Then a $G$-\emph{linearisation} of $L$ is a lift of $\sigma$ to $\overline{\sigma}:G\times L\to L$ which commutes with $\sigma$ under the projection $\pi$; $\sigma(g,\pi(s))=\pi(\overline{\sigma}(g,s))$ for all $s\in\Gamma(X,L)$, and such that the $0$ section is invariant.
 \end{defn}
-	Remark: A linearisation defines a linear map between fibres of $L$, $\overline{\sigma}:L_x\to L_{g\cdot x}$. \vspace{1em}
+\begin{remark}
+ A linearisation defines a linear map between fibres of $L$, $\overline{\sigma}:L_x\to L_{g\cdot x}$.
+\end{remark}
 	
 	Example: Let $X=\C^n$ and $L=\C\times \C^n$ be the trivial bundle. Then a linearisation of $L$ is a character in $\chi(G)$. If we fix $\theta \in \chi(G)$, then the linearisation of $L$ is 
 	\begin{equation}
@@ -343,7 +386,7 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 		
 		A point which is not semistable is called unstable. The set of semistable points is denoted $X^{ss}(L)$, it is Zariski open and $G$-invariant.
 	\end{defn}
-	Remark: If $L$ is ample then $\{y\in X ~|~ s(y)\neq 0\}$ is always affine. \vspace{1em}
+	If $L$ is ample then $\{y\in X ~|~ s(y)\neq 0\}$ is always affine.
 	
 	\begin{defn}
 		A semistable point $x\in X^{ss}$ is \emph{stable} if there exists some $s\in\Gamma(X,L^k)^G$ such that $s(x)\neq 0$ and the action $G$ on $Y=\{y\in X ~|~ s(y)\neq 0\}$ is closed, $Y$ is affine and the stabiliser of $x$ is finite. If the stabiliser is not finite, $x$ is called \emph{polystable}.
@@ -351,7 +394,10 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 	
 	The set of polystable points is a disjoint union of open sets, each of which consists of polystable orbits of a fixed dimension. \vspace{1em}
 	
-	Exercise: Suppose $L$ is very ample and we have an embedding $X\subset \bP^k$ for some $k$. Show that the following notions of semistable and stable agree with the definitions above.
+	\begin{exercise}
+		Suppose $L$ is very ample and we have an embedding $X\subset \bP^k$ for some $k$. Show that the following notions of semistable and stable agree with the definitions above.
+	\end{exercise}
+
 	\begin{itemize}
 		\item $x \in X$ is semi-stable if there exists a $G$-invariant homogeneous polynomial $f$ with $f(x)\neq0$.
 		\item $x\in X$ is stable if $G\cdot x$ is finite and there exists a $G$-invariant homogeneous polynomial with $G\cdot x$ closed in $D_f$.
