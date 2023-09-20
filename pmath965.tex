@@ -164,8 +164,8 @@ Example: Let $T=\C^\ast$ and $V=\C^2$. Define an action of $T$ on $V$ by $\lambd
 \end{defn}
 Goal: If we have an action $G\circlearrowright X$, we want to build some quotient $X/G$ in an algebraio-geometric way. As a naive attempt we can just take the quotient as topological spaces. Consider the action of $\C^\ast$ on $\C^2$ from before. If we endow the set $\C^2/\C^\ast$ with the quotient topology, then since $[(0,0)]$ is in every open neighbourhood of every other point (as we can always take a sequence of $\lambda_i\in\C^\ast$ approaching zero), this quotient is not even Hausdorff. \vspace{1em}
 
-To solve this, we essentially want to delete the origin, and obtain $\left(\C^2 - \{(0,0)\}\right)/\C^\ast = \bP^1$. The putative quotient $Y$ we want to define must have the following properties:
-\begin{itemize}
+To solve this, we essentially want to delete the origin, and obtain $\left(\C^2 - \{(0,0)\}\right)/\C^\ast = \bP^1$. The putative quotient $Y$ we want to define could have the following desirable properties.
+\begin{enumerate}
 	\item There exists a surjection $p:X\to Y$ which is $G$-invariant.
 	\item $Y$ is separated.
 	\item $Y$ satisfies the following universal property: if $f:X\to Z$ is $G$ invariant, then it factors uniquely through $p$. That is:
@@ -181,9 +181,10 @@ To solve this, we essentially want to delete the origin, and obtain $\left(\C^2 
 	\end{tikzcd}\] 
 	\item For all $U$ open, $\OO_Y(U) \cong \OO_X(p^{-1}(U))^G$, where the superscript denotes $G$-invariant functions.
 	\item If $Z\subset X$ is closed and $G$-invariant, then $p(Z)$ is closed. If $Z_1, Z_2$ are disjoint and closed then $p(Z_1)$ and $p(Z_2)$ are disjoint.
-\end{itemize}
-If $p$ satisfies all these properties, we say it is a \emph{good quotient}. Moving forward, we will talk about affine and projective GIT quotients, symplectic reduction, and comparison between these two methods of constructing good quotients. \vspace{1em}
-
+\end{enumerate}
+\begin{defn}
+	If a map $p$ exists as in property 1, and it satisfies property 3, we say it is a \emph{categorical quotient}. If $p$ satisfies properties 4 and 5, then we say it is a \emph{good quotient}.
+\end{defn}
 We can also consider a geometric quotient, which is a good quotient whose points are orbits of $G\circlearrowright X$. 
 
 \begin{remark}
@@ -400,7 +401,7 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 
 	\begin{itemize}
 		\item $x \in X$ is semi-stable if there exists a $G$-invariant homogeneous polynomial $f$ with $f(x)\neq0$.
-		\item $x\in X$ is stable if $G\cdot x$ is finite and there exists a $G$-invariant homogeneous polynomial with $G\cdot x$ closed in $D_f$.
+		\item $x\in X$ is stable if $G\cdot x$ is finite and there exists a $G$-invariant homogeneous polynomial and the $G$-action on $D_f$ is closed.
 	\end{itemize}
 	
 	\begin{thm}
@@ -438,4 +439,56 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 	\begin{thm}
 		The restriction of $p:X^{ss}(L)\to X\sslash G$ to $p:X^s(L)\to X^s(L)\sslash G$ is a geometric quotient.
 	\end{thm}
+	
+\subsection{Stability Criteria}
+	We've constructed good and geometric quotients of $X^{ss}$ and $X^{s}$, but in general finding the semi-stable and stable points can be difficult. Therefore we will prove some criteria which help us compute these loci. We say $f$ is HGI to mean $f:\C^{n+1}\to\C$ is a homogeneous, $G$-invariant polynomial.
+	
+	Assume $G$ is reductive, $X\subset \bP^n$ is a projective variety, and $G$ acts linearly on $\C^{n+1}$. 
+	\begin{prop}[Topological criterion for stability]
+		Let $\hat{x}$ be a lift of $x\in X$ to $\C^{n+1}$. Then
+		\begin{enumerate}
+			\item $x$ is semistable $\iff$ $0\not\in G\cdot \tilde{x}$.
+			\item $x$ is stable $\iff$ $\dim G_{\hat{x}} =0$ and $G\cdot\hat{x}$ is closed in $\hat{X}$.
+		\end{enumerate}
+	\end{prop}
+	\begin{proof}
+		1) If $x$ is semistable, then there exists $f$ HGI such that $f(x)\neq 0$. Then $f(\hat{x})\neq 0$, and by $G$-invariance $f(G\cdot\hat{x}) = f(\hat{x})$ is non-zero constant. Furthermore, by continuity this means $f(\overline{G\cdot\hat{x}})\neq 0$. Thus $\overline{G\cdot \hat{x}}\cap \{0\} =\emptyset$ by the topological property of good quotients. \vspace{1em}
+	
+		Conversely, these sets being disjoint means there exists an $f\in \C[x_0,...,;x_n]^G$ such that $f(\overline{G\cdot \hat{x}})=1$ and $f(0)=0$ by an earlier lemma. We can write $f=\sum h_i$ with the $h_i$ all HIG, and since $f$ does not vanish on $\overline{G\cdot \hat{x}}$ at least one $h_i$ must not vanish there. \vspace{1em}
+		
+		2) Suppose $\dim G_x 0$ and there is a HIG $f$ such that $x\in D_f$ and $G\cdot\hat{x}$ is closed in $D_f$. Note that $G_{\hat{x}} \subset G_x$ which implies $G_{\hat{x}}$ is finite. Let $\pi:\C^{n+1}\to\bP^n$ be the quotient and define 
+		\begin{equation}
+		Z = \{z\in \hat{X} ~|~ f(z) = f(\hat{x})\}.
+		\end{equation}
+		$Z$ is closed. Consider the map $\pi:Z\to D_f$, which is surjective and finite because things in $\pi^{-1}(a)$ must be in the stabiliser $G_a$ which is finite. Then $\pi^{-1}(G\cdot x)$ is cclosed since $G\dot x$ is closed in $D_f$, and $\pi$ is continuous. $\pi^{-1}(G\cdot x)$ is $G$-invariant, and so it is the union of a finite number of $G$ orbits, all of dimension $\dim G_x$, hence they are closed, and so is $G\cdot\hat{x}\subset \pi^{-1}(G\cdot x)$. \vspace{1em}
+		
+		Conversely, suppose $G\cdot \hat{x}$ is closed in $\hat{X}$. Then $0\not\in\overline{G\cdot\hat{x}}$ again and by 1), $x$ is semi-stable. Hence there exists $f$ HIG s.t. $f(x)\neq0$.
+		
+		Let $Z,\pi$ be the same as before. Since $\pi(G\cdot\hat{x}) = G\cdot x$, then $x$ has a finite stabiliser and $G\cdot x$ is closed in $D_f$. This argument works for every HGI $f$ with $f(x)\neq 0$, hence $G\cdot x$ is closed in $X^{ss}$, and $x$ is stable.
+	\end{proof}
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
