@@ -466,6 +466,88 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 		
 		Let $Z,\pi$ be the same as before. Since $\pi(G\cdot\hat{x}) = G\cdot x$, then $x$ has a finite stabiliser and $G\cdot x$ is closed in $D_f$. This argument works for every HGI $f$ with $f(x)\neq 0$, hence $G\cdot x$ is closed in $X^{ss}$, and $x$ is stable.
 	\end{proof}
+	Now, we will work towards a numerical criterion, first by considering $G=\C^\ast$. Let $\C^\ast\circlearrowright X\subset\bP^k$ linearly. Up to change of basis, we can assume $\C^\ast$ acts diagonally on $\C^{k+1}$. To be precise, for $t\in\C^\ast$ we have
+	\begin{equation}
+		t\cdot(x_0,...,x_{k}) = (t^{w_0}x_0,...,t^{w_k}x_k),\quad w_i\in\mathbb{Z}.
+	\end{equation}
+	For $x=[x_0:...:x_n]\in X$, let $\hat{x}=(x_0,...,x_n)$, and let $\mu(x)=\max\{-w_i~|~i \text{ such that } x_i\neq 0\}$. Consider
+	\begin{equation}
+		\lim_{t\to 0} t^s (t\cdot \hat{x}) = \lim_{t\to 0} (t^{s+w_0}x_0,...,t^{s+w_k}x_k).
+	\end{equation}
+	If $s>\mu(x)$, then the limit goes to 0. If $s<\mu(x)$ then the limit doesn't exist. Thus, $\mu(x)$ is the unique $s\in\mathbb{Z}$ such that this limit exists but is non-zero. Similarly, let $\mu(x)=\max\{w_i~|~i \text{ such that } x_i\neq 0\}$. Then
+	\begin{enumerate}
+		\item $\mu^-(x)<0 \iff \lim_{t\to\infty} t\cdot\hat{x}$ does not exist.
+		\item $\mu^-(x)=0 \iff \lim_{t\to\infty} t\cdot\hat{x}$ exists and is non-zero.
+	\end{enumerate}
+	Using $\mu$ and $\mu^-$ we can find the following stability criterion.
+	\begin{prop}
+	$x$ is (semi)-stable if and only if $\mu(x)>(\geq)0$ and $\mu^-(x)>(\geq)0$.
+	\end{prop}
+	\begin{proof}
+		The closure of $G\cdot \hat{x}$ is obtained by adding in the limits as $t\to0$ and $t\to\infty$;
+		\begin{equation}
+			\overline{G\cdot\hat{x}} = G\cdot\hat{x}\cup \{\lim_{t\to 0} t\cdot \hat{x}, \lim_{t\to\infty}t\cdot\hat{x}\}.
+		\end{equation}
+		From the topological criterion, we know semistability means $0\not\in\overline{G\cdot \hat{x}}$. This happens exactly when neither limit is zero, which happens if and only if $\mu(x)\geq0$ and $\mu^-(x)\geq 0$, as discussed above. \vspace{1em}
+		
+		Furthermore stability occurs $G\cdot\hat{x}$ is closed, namely $\overline{G\cdot \hat{x}}=G\cdot\hat{x}$. This happens when both limits do not exist, which is if and only if $\mu(x)>0$ and $\mu^-(x)>0$.
+	\end{proof}
+	Now we will use this to build a criterion for general reductive $G$, called the \emph{Hilbert-Mumford Numerical Criterion}. Let $G$ be reductive acting on $X$ projective via $\rho:G\hookrightarrow GL(n,\C)$.
+	\begin{defn}
+		A \emph{one-parameter subgroup} (1PS) of $G$ is a non-trivial group homomorphism $\lambda:\C^\ast\to G$. 
+	\end{defn}
+	Let $\lambda$ be a 1PS of $G$, $x\in X$ and $\hat{x}$ a lift of $x$ as before. Then there is an action $\C^\ast \circlearrowright X$ by $\C^\ast\xrightarrow{\lambda} G\xrightarrow{\rho} GL(n,\C)$. If we write $x=\sum x_ie_i$ in a diagonal basis $\{e_i\}_{i=0}^{k}$ for this action, then as before $t\in\C^\ast$ acts by 
+	\begin{equation}
+		t\cdot(x_0,...,x_{k}) = (t^{w_0}x_0,...,t^{w_k}x_k),\quad w_i\in\mathbb{Z}.
+	\end{equation}
+	Define $\mu(x,\lambda)=-\min\{w_i ~|~ i \text{ such that } w_i\neq 0\}$. 
+	\begin{exercise}
+		Prove that
+		\begin{enumerate}
+			\item $\mu(x,\lambda^n) = n\mu(x,\lambda)$,
+			\item $\mu(g\cdot x, g\lambda g^{-1}) = \mu(x,\lambda)$,
+			\item $\mu(x,\lambda) = \mu(x_0,\lambda), \quad x_0:=\lim_{t\to0} \lambda(t)\cdot x$.
+		\end{enumerate}
+	\end{exercise}
+	Note that we do not need a $\mu^-$ because $\lim_{t\to\infty}\lambda(t)\cdot \hat{x} = \lim_{t\to0} \lambda^{-1}(t)\cdot{x}$.
+	\begin{lemma}
+		$x$ is (semi)-stable with respect to $\lambda(\C^\ast)$ if and only if $\mu(x,\lambda)>(\geq)0$ and $\mu(x,\lambda^{-1})>(\geq)0$.
+	\end{lemma}
+	\begin{proof}
+		Exactly as in the $\C^\ast$ case.
+	\end{proof}
+	\begin{theorem}[Hilbert-Mumford Numerical Criterion]
+		Let $G$ be a reductive group, acting linearly on $X\subset \bP^n$. Then $x$ is (semi)-stable if and only if $\mu(x,\lambda)>(\geq)0$ for all 1PS $\lambda$ of $G$.
+	\end{theorem}
+	We won't prove this, but the work we've done so far shows that this theorem is equivalent to:
+	\begin{theorem}[Fundamental Theorem of GIT]
+		Let $G$ be a reductive group acting linearly on $\C^{n+1}$, and let $x\in\C^{n+1}$. If $y\in\overline{G\cdot x}$ then there is a 1PS $\lambda$ of $G$ such that $\lim_{t\to 0}\lambda(t)x=y$. 
+	\end{theorem}
+	\begin{exercise}
+		Let $G=\C^\ast$, $X=\bP^n$. Consider the action given by weights $(-1,...,-1,1,...,1)$, $k$ and then $n-k$ times. Determine, using the Hilbert-Mumford criterion, the GIT quotient $\bP^n\sslash\C^\ast$.
+	\end{exercise}
+	Next we will rephrase this criterion for GIT quotients defined in terms of an ample line bundle $L\to X$. Suppose $L$ has a $G$ linearisation and let $\lambda$ be a 1PS of $G$. Then since $X$ is projective,
+	\begin{equation}
+		x_0 := \lim_{t\to 0} \lambda(t)x\in X
+	\end{equation}
+	is a fixed point for $\lambda$. Then $\lambda$ acts on the fibre $L_{x_0}$ by some character $t\to t^r$ and we define $\mu^L(x,\lambda)=r$. To compare this definition with the previous one, choose a basis such that $\lambda$ acts diagonally with weights $w_0,...,w_k$, and write $\hat{x}=[a_0:...:a_k]$. Then
+	\begin{equation}
+		\lim_{t\to 0}\lambda(t) = [b_0:...:b_n], \quad b_i = \begin{cases}
+			a_i & \text{if } w_i=-\mu(x,\lambda),\\
+			0 & \text{else}.
+		\end{cases}
+	\end{equation}
+	On the fibres, the action of $\lambda$ has weight $-\mu(x,\lambda)$. These fibres lift to $\OO(-1)$ so the weight of $\lambda$ on $\OO(1)$ is $\mu(x,\lambda)$. Using the Hilbert-Mumford criterion, we obtain
+	\begin{theorem}
+		Let $G$ be reductive, $G\circlearrowright X$ projective, and $L\to X$ ample and with a linearisation. Then $x$ is (semi)-stable if and only if $\mu^L(x,\lambda)>(\geq)0$ for all 1PS $\lambda$ of $G$.
+	\end{theorem}
+	\begin{proof}
+		$L^n$ is very ample, and $\mu^{L^n}(x,\lambda)=\mu^L(x,\lambda)$. Since we are only checking for $\mu$ non-zero, we can assume $L$ is very ample without loss of generality, embed $X$ into $\bP^n$ and then reduce to the Hilbert-Mumford criterion.
+	\end{proof}
+	There is one other important case. If $X=\C^n$ then the criterion does not apply as written as $\C^n$ is not projective. However, projectivity was only used to look at the limit $\lim_{t\to0}\lambda(t)\cdot x$. Now for $\C^n$ this limit may not exist, but if it does not exist then it cannot add anything to the closure of $G\cdot x$, and that is exactly what we want for stability. Thus we have
+	\begin{theorem}
+		A point $x\in\C^n$ is (semi)-stable if and only if $\mu(x,\lambda)>(\geq)0$ for all 1PS $\lambda$ of $G$ for which $\lim_{t\to0}\lambda(t)\cdot x$ exists.
+	\end{theorem}
 \end{document}
 
 
