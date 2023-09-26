@@ -26,6 +26,7 @@
 \newcommand{\Spec}{\text{Spec}}
 \newcommand{\Proj}{\text{Proj}}
 \newcommand{\m}{\mathfrak{m}}
+\newcommand{\fk}{\mathfrak{k}}
 %opening
 \title{}
 \author{}
@@ -516,13 +517,13 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 	\begin{proof}
 		Exactly as in the $\C^\ast$ case.
 	\end{proof}
-	\begin{theorem}[Hilbert-Mumford Numerical Criterion]
+	\begin{thm}[Hilbert-Mumford Numerical Criterion]
 		Let $G$ be a reductive group, acting linearly on $X\subset \bP^n$. Then $x$ is (semi)-stable if and only if $\mu(x,\lambda)>(\geq)0$ for all 1PS $\lambda$ of $G$.
-	\end{theorem}
+	\end{thm}
 	We won't prove this, but the work we've done so far shows that this theorem is equivalent to:
-	\begin{theorem}[Fundamental Theorem of GIT]
+	\begin{thm}[Fundamental Theorem of GIT]
 		Let $G$ be a reductive group acting linearly on $\C^{n+1}$, and let $x\in\C^{n+1}$. If $y\in\overline{G\cdot x}$ then there is a 1PS $\lambda$ of $G$ such that $\lim_{t\to 0}\lambda(t)x=y$. 
-	\end{theorem}
+	\end{thm}
 	\begin{exercise}
 		Let $G=\C^\ast$, $X=\bP^n$. Consider the action given by weights $(-1,...,-1,1,...,1)$, $k$ and then $n-k$ times. Determine, using the Hilbert-Mumford criterion, the GIT quotient $\bP^n\sslash\C^\ast$.
 	\end{exercise}
@@ -538,9 +539,9 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 		\end{cases}
 	\end{equation}
 	On the fibres, the action of $\lambda$ has weight $-\mu(x,\lambda)$. These fibres lift to $\OO(-1)$ so the weight of $\lambda$ on $\OO(1)$ is $\mu(x,\lambda)$. Using the Hilbert-Mumford criterion, we obtain
-	\begin{theorem}
+	\begin{thm}
 		Let $G$ be reductive, $G\circlearrowright X$ projective, and $L\to X$ ample and with a linearisation. Then $x$ is (semi)-stable if and only if $\mu^L(x,\lambda)>(\geq)0$ for all 1PS $\lambda$ of $G$.
-	\end{theorem}
+	\end{thm}
 	\begin{proof}
 		$L^n$ is very ample, and $\mu^{L^n}(x,\lambda)=\mu^L(x,\lambda)$. Since we are only checking for $\mu$ non-zero, we can assume $L$ is very ample without loss of generality, embed $X$ into $\bP^n$ and then reduce to the Hilbert-Mumford criterion.
 	\end{proof}
@@ -548,7 +549,69 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 	\begin{theorem}
 		A point $x\in\C^n$ is (semi)-stable if and only if $\mu(x,\lambda)>(\geq)0$ for all 1PS $\lambda$ of $G$ for which $\lim_{t\to0}\lambda(t)\cdot x$ exists.
 	\end{theorem}
-\end{document}
+	
+	Example - Grassmannian: Let $0<r<n \in\mathbb{N}$ and let $GL(r)\circlearrowright M_{r\times n}$ by left multiplication. Let $L=M_{r\times n}\times \C$ be the trivial line bundle and let it be linearized by $g\to \det(g)$. First we claim that :
+ $$A\in M_{r\times n} \text{ is stable } \iff A \text{ is stable } \iff \text{rk}(A)=r.$$
+	Suppose that rk$(A)<r$. Since stability is $G$-invariant, we can replace $A$ with $gA$ and thus row reduce to $A$ in row-reduced echelon form; in particular since the rank is not full, it will have a bottom row of zeros. Let $\lambda$ be the 1PS defined by
+	$$ \lambda(t) = \text{diag}(t,t,...,t,t^{-r}), $$
+	so that the limit $\lim_{t\to 0}\lambda(t) A$ exists, and $\langle \theta, \lambda \rangle = r-1-r = -1 < 0$, implying $A$ is unstable. \vspace{1em}
+	
+	Now suppose that rk$(A)=r$.  Since $\mu_L(gx, g\lambda g^{-1}) = \mu_L(x,\lambda)$, we can assume that any $\lambda$ is diagonal. Let $\lambda(t)$ be the 1PS given by weights $w_1,...,w_r$. Since every row of $A$ is non-zero, $\lim_{t\to 0}\lambda(t)A$ exists and hence $w_i\geq 0$ unless $\rangle \theta, \lambda \rangle = \sum w_i > 0$. Hence $A$ is stable. \vspace{1em}
+	
+	Using this claim, we have that the GIT quotient $M_{r\times n}\sslash GL(r)$ is classes of full-rank matrices up to chance of basis, which is the Grassmannian Gr$(n,r)$. 
+	
+	\pagebreak
+	
+	\section{Symplectic Reduction}
+	In this section, our goal is to connect GIT quotients to another form of geometric quotient called symplectic reduction. 
+	
+	\begin{defn}
+		A \emph{symplectic manifold} is a pair $(X,\omega)$ where $X$ is a real manifold, and $\omega$ is a closed, non-degenerate smooth 2-form on $X$, called the symplectic form. \vspace{1em}
+		
+		In detail, $\omega$ is a skew-symmetric bilinear form $\omega_x:T_xX\times T_xX \to \mathbb{R}$ such that
+		\begin{itemize}
+			\item (Smooth) $\omega_x$ varies smoothly in $x$.
+			\item (Non-degenerate) For all $x\in X$, $\omega_x$ is an isomorphism of $T_xX$ with $T_x^\ast X$ via
+			$$\xi \to \omega_x(\xi, -)$$
+			\item (Closed) $d\omega =0$.
+		\end{itemize}
+		\end{defn}
+		
+		\noindent Example: Let $X=\C^n$ with co-ordinates $z_k=x_k+iy_k$. Then
+		$$\omega = \sum_{k=1}^n dy_k\wedge dx_k = \frac{1}{2i}\sum dz_k\wedge d\bar{z}_k$$
+		is a symplectic form. \vspace{1em}
+		
+		\noindent Example: Let $X=\bP^n$, which is given by the quotient $\C^{n+1}/\C^\ast$. The symplectic form on $\C^{n+1}$ is not invariant under $\C^\ast$, so it does not pass to the quotient. However, if we think of $\bP^n = S^{2n+1}/S^1$, and restrict the form on $\C^{n+1}$ to $S^{2n+1}$, we get a short exact sequence:
+		\begin{equation}
+			T_p(S^1 \cdot p) \hookrightarrow T_pS^{2n+1}\twoheadrightarrow T_{[p]}\bP^n.
+		\end{equation}
+		From this we define the \emph{Fubini-Study} form $\omega_{FS}$, by $\pi^\ast \omega_{FS} = \omega_{S^{2n+1}}$, where $\pi:S^{2n+1}\to\bP^n$ is the projection. For this to be well defined, one must check that it vanishes on $T_p(S^1\cdot p)$. \vspace{1em}
+		
+		For the remainder of this section, fix $(X,\omega)$ to be a symplectic manifold.
+		\begin{defn}
+			Let $H:X\to \mathbb{R}$ be smooth. Then $dH\in \Omega^{1}(X)$. The \emph{Hamiltonian vector field} corresponding to $H$ is the unique vector field $\xi$ such that 
+			\begin{equation}
+				\iota_\xi \omega = dH.
+			\end{equation}
+			We say a vector field $\xi$ is \emph{Hamiltonian} if $\iota_\xi\omega$ is exact.
+		\end{defn}
+		\begin{defn}
+			A vector field $\xi$ is \emph{symplectic} if $\iota_\xi\omega$ is closed
+		\end{defn}
+		Note then that being Hamiltonian implies being symplectic.
+		\begin{defn}
+			Let $K$ be a compact, connected Lie group acting on $(X,\omega)$. If $(g\cdot -) = l_g:X\to X$ is a symplectomorphism for all $g\in K$, then we say $K$ \emph{acts symplectically}. 
+		\end{defn}
+		Suppose $K\circlearrowright (X,\omega)$ symplectically. Let Lie$(K) = \fk$. There exists the exponential map
+		\begin{equation}
+			\exp(-,A):\mathbb{R} \to X, \quad t\to \exp(tA)\cdot x.
+		\end{equation}
+		We can take the derivative and evaluate at zero to get
+		\begin{equation}
+			\frac{d}{dt}e^{tA}\cdot x|_{t=0} \in T_xX,
+		\end{equation}
+		and letting $x$ vary, this defines a vector field denoted $X_A$.	
+		\end{document}
 
 
 
