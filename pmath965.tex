@@ -562,7 +562,7 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 	
 	\pagebreak
 	
-	\section{Symplectic Reduction}
+	\subsection{Symplectic Reduction}
 	In this section, our goal is to connect GIT quotients to another form of geometric quotient called symplectic reduction. 
 	
 	\begin{defn}
@@ -611,7 +611,95 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 			\frac{d}{dt}e^{tA}\cdot x|_{t=0} \in T_xX,
 		\end{equation}
 		and letting $x$ vary, this defines a vector field denoted $X_A$.	
-		\end{document}
+		\begin{exercise}
+			Since $K$ acts symplectically, its image is closed. When is $X_A$ Hamiltonian? Can we pick a map 
+			$\fk \to C^\infty(X)$ which is a Lie algebra homomorphism?
+		\end{exercise}
+		
+		\begin{defn}
+			A \emph{moment map} for a Hamiltonian action is a map $\mu:X\to\fk^\ast$ such that
+			\begin{enumerate}
+				\item $\mu$ is $\fk$-equivariant
+				\item $d(\langle \mu(\xi), A\rangle) = \omega(X_A, \xi)$ for all $A\in\fk$
+			\end{enumerate}
+		\end{defn}
+		\noindent Example: Let $U(n)$ act on $\C^n$ in the natural way. Then $\mathfrak{u}(n)$ is the skew-Hermitian matrices and 
+		\begin{equation}
+			\omega(z,v) = \frac{1}{2i}\left(H(z,v)-\overline{H(z,v)}\right),
+		\end{equation}
+		where $H(z,v)=zv^\dagger$, defines a symplectic form. We identify $\mathfrak{u}(n)\cong\mathfrak{u}(n)^\ast$ by the map $A\to \left(B\to \text{Tr}(AB)\right)$, which lets us define
+		\begin{align*}
+			\mu:X&\to \mathfrak{u}(n)\\
+			z&\to -\frac{i}{2}zz^\dagger
+		\end{align*} 
+		or equivalently,
+		\begin{align*}
+			\mu:X&\to \mathfrak{u}(n)^\ast\\
+			z&\to -\frac{i}{2}\text{Tr}(z^\dagger A z).
+		\end{align*} 
+		We show this is equivariant and leave condition 2 as an exercise. Let $K\in U(n)$. Then
+		\begin{align*}
+			\mu(K\cdot z)A &= -\frac{i}{2}\text{Tr}\left( (Kz)^\dagger A (Kz)\right)\\
+			&= -\frac{i}{2}\text{Tr}(z^\dagger K^\dagger A K z)\\
+			&= \mu(z)(K\cdot A).
+		\end{align*}
+		
+		This example allows us to compute the moment map for any unitary linear action on $\C^n$. If $\rho:K\to U(n)$, then $\mu_K = \rho^\ast \mu_{U(n)}$.
+		
+		\noindent Example: If $K=(S^1)^n$ acting on $\C^n$ with weights $(r_1,...,r_n)$, then $\mu:\C^n\to\mathbb{R}^n$ is given by
+		$$ \mu(z_1,...,z_n) = \left(\frac{r_i|z_i|^2}{2}\right)_{i=1}^n.$$
+		
+		\begin{exercise}
+			Show that the moment map for $U(r)\circlearrowright M_{r\times n}$ is given by $A\to i(A^\dagger A - \mathbb{I})$.
+		\end{exercise}
+		
+		Now we have all the pieces to define symplectic reduction. Suppose we have $K\circlearrowright (X,\omega)$ and we want to build a quotient which is also symplectic. Even if $X/K$ is a smooth manifold, it might not have even dimension and so it certainly might not be symplectic. Suppose there is a moment map $\mu$ for the $K$ action.
+		\begin{lemma}
+			If $\eta$ is a regular value of $\mu$, then $\mu^{-1}(\eta)$ is a closed submanifold of $X$ with codimension $\dim K$. \vspace{1em}
+			
+			Moreover, $T_x\mu^{-1}(\eta)$ and $T_x(K\cdot x)$ are orthogonal with respect to the $\omega$ for all $x\in \mu^{-1}(\eta)$.
+		\end{lemma}
+			Suppose $\eta$ is a regular value of $\mu$ which is fixed by the coadjoint orbit action. Since $\mu$ is $K$-equivariant, $\mu^{-1}(\eta)$ is $K$-invariant. Thus we can define the \emph{symplectic reduction} to be
+			\begin{equation}
+				X_\eta^{red} = \mu^{-1}(\eta)/K. 
+			\end{equation}
+			\begin{theorem}[Marsden-Weinstein-Meyer]
+				Fix a Hamiltonian action of a compact connected Lie group $K$ on a symplectic manifold $(X,\omega)$ with moment map $\mu$, and a regular, co-adjoint fixed value $\eta \in \fk^\ast$. If the action of $K$ on $\mu^{-1}(\fk)$ is free then
+				\begin{enumerate}
+					\item $X_\eta^{red}$ is a smooth manifold of dimension $\dim X - 2\dim K$.
+					\item There is a unique symplectic form $\omega^{red}$ on $X_\eta^{red}$ such that
+					$$\pi^\ast(\omega^{red}) = \iota^\ast \omega$$
+					where $\iota:\mu^{-1}(\eta)\to X$ and $\pi:\mu^{-1}(\eta)\to X_\eta^{red}$ are the inclusion and quotient maps.
+				\end{enumerate}
+			\end{theorem}
+			
+			Reductive groups are the complexification of real compact Lie groups: Fix any reductive group $G$. There is a compact Lie group $K<G$ such that $\fk \subset \mathfrak{g}$ and $\mathfrak{g} = \fk+ i\fk$. 
+			
+			\noindent Examples: $S^1 < \C^\ast$, $SU(n)<SL(n,\C)$.			
+			
+			Now suppose we have $G$ reductive, $K<G$ compact, and $G$ acts on a smooth projective variety $X\subset \bP^n$ linearly. Then this induces an action of $K$ on $X$ which is symplectic on $\bP^n$. The moment-map corresponding to the Fubini-Study form on $\bP^n$ gives a moment map for the $K$ action.
+			
+			\begin{theorem}[Kempf-Ness]
+				Let $K,G,X,\mu$ be as above. Then
+			\begin{enumerate}
+				\item $G \cdot \mu^{-1}(0) = X^{\text{polystable}}$.
+				\item If $x\in X$ is polystable, then $G\cdot x \cap \mu^{-1}(0)=K\cdot y$ for some $y\in X$.
+				\item $x\in X^{ss} \iff \overline{G\cdot x}\cap \mu^{-1}(0)\neq \emptyset$.
+			\end{enumerate}
+			Proof: Hoskins
+			\end{theorem}
+
+			As a corollary we have
+			\begin{prop}
+				The inclusion $\mu^{-1}(0)\subset X^{ss}$ induces a homeomorphism $\mu^{-1}(0)/K \to X\sslash G$
+			\end{prop}
+			\begin{proof}
+				$X\sslash G$ is a good quotient, the set $X^{ss} /\sim$, where $\sim$ denotes GIT equivalence. Then for $x\in X^{ss}$, $\overline{G\dot x}$ contains a unique closed orbit, which is polystable. Hence as a set
+			$$ X\sslash G = \{ \text{polystable orbits}\}$$
+			Then point 2 of Kempf-Ness tells us the sets are the same and we have a continuous bijetion between a compact space and a Hausdorff space; hence a homeomorphism.
+			\end{proof}
+
+			\end{document}
 
 
 
