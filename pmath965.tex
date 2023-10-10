@@ -27,6 +27,8 @@
 \newcommand{\Proj}{\text{Proj}}
 \newcommand{\m}{\mathfrak{m}}
 \newcommand{\fk}{\mathfrak{k}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Hom}{\text{Hom}}
 %opening
 \title{}
 \author{}
@@ -813,7 +815,79 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 			\begin{equation}
 				x\to (e_i \to s_i(x)).
 			\end{equation}
-\end{document}
+			
+			\subsection{Quiver Moduli Spaces}
+			\begin{defn}
+				A \emph{quiver} is a directed multigraph $Q$, with vertices $Q_0$ and edges $Q_1$. There are maps $s,t:Q_1\to Q_0$, and for any $e\in Q_1$, $s(e)$ and $t(e)$ are called the \emph{source} and \emph{target} of $e$.
+			\end{defn}
+			\begin{defn}
+				A representation of a quiver $Q$ is a set in the form$$\left\{
+				(V_i, \phi_a), ~|~ i\in Q_0, a\in  Q_1, V_i \text{ a vector space}, \phi_a:V_{s(a)}\to V_{t(a)}
+				\right\}.$$
+				The \emph{dimension} of a representation is $(\dim V_i)_{i \in Q_0} \in \mathbb{N}^{|Q_0|}$. \vspace{1em}
+				
+				A \emph{morphism} of representations $(V_i,\phi_a)\to(W_i,\psi_a)$ is a collection of intertwining linear maps: $f_i:V_i\to W_i$ such that $f_i\psi_a = \psi_af_i$.
+			\end{defn}
+			Therefore for any quiver $Q$ we have a moduli problem, which is to classify representations of $Q$ with fixed dimension up to isomorphism. We can always fix $V_i = \C^{r_i}$, and define a space of representations
+			\begin{equation}
+			\Rep(Q,r) = \bigoplus_{a\in Q_i}\Hom(\mathbb{C}^{r_{s(a)}}, \C^{r_{t(a)}}).
+			\end{equation}
+			Our isomorphisms live in the group $G = \prod_{i \in Q_0} GL(r_i)$, acting by change of basis: 
+			$$(g_i)\circ (\phi_a) = g_{t(a)} \phi_a g_{s(a)}^{-1}.$$
+			The character group is $\chi(G) \cong \mathbb{Z}^{|Q_0|}$. To answer this moduli problem, our goal is to study the GIT quotient $\Rep(Q,r)/G$. Using the Hilbert-Mumford criterion, we can work out a characterization of stability for this set. Let $\lambda$ be a 1PS. Consider the action of $\lambda$ on $(V_I,\phi_a)$; we have $\lambda:\C^\ast \to GL(V_i)$, and so $$V_i = \bigoplus_{n\in\mathbb{Z}} V_i^{(n)},$$	where $V_i^{(n)}$ denotes the subspace on which $\C^\ast$ has weight $n$. For each map $\phi_a$, there is a component $\phi_a^{mn}:V_{s(a)}^{(n)}\to V_{t(a)}^{(m)}$. By construction, our 1PS acts on $\phi_a^{mn}$ by
+			$$\lambda(t)\cdot \phi_a^{mn} = t^{m-n}\phi_a^{mn}.$$
+			Therefore the limit $\lim_{t\to 0} \lambda(t)\cdot \phi_a$ exists iff $\phi_a^{mn}=0$ for $m<n$ iff $\phi_a(V_{s(a)}^{(n)}) \subset \bigoplus_{m\geq n} V_{t(a)}^m$. Let $M_n := \bigoplus_{m\geq n} V_i^{(m)}$. Remark that for $n\gg 0$, $M_n=0$, and for $0\gg n$, $M_n = V_i$. Therefore the image of the limit $\lim_{t\to 0} \lambda(t)\cdot \phi_a$, (if it exists) will be 
+			$$\bigoplus_{n\in \mathbb{Z}} M_n/M_{n+1}.$$
+			In summary, a 1PS subgroup with limit is turned into a filtration of $V_i$. \vspace{1em}
+			
+			Suppose instead we are given a filtration $\{M_n\}$ of $V_i$. We can build $\bigoplus_{n\in \mathbb{Z}}M_n/M_{n+1}$ and define a 1PS $\lambda$ by setting the action of $\C^\ast$ on $M_n/M_{n+1}$ to have weight $n$. Now we can connect this with the Hilbert-Mumford criterion. Consider a linearisation $\theta \in \chi(G)$. Since we are working with a non-trivial stabilizer $\Delta$, we require $\theta(\Delta)=1$. Consider 
+			\begin{align*}
+				\langle \theta, \lambda \rangle &= \sum_{i\in Q_0}\sum_{n\in\mathbb{Z}} \theta_i n \dim(V_i^{(n)})\\
+				(\text{exercise}) ~ &= \sum_{i\in Q_0}\sum_{n\in\mathbb{Z}} \theta_i n \dim\left(M_n/M_{n+1}\right)_i\\
+				&= \sum_{i\in Q_0} \sum_{n\in\mathbb{Z}} \theta_i \dim(M_n).
+			\end{align*}
+			This motivates us to define, for any representation $M=(M_i)_{i\in Q_0}$ of $Q$, $\theta(M) = \sum_{i\in Q_0} \theta_i \dim (M_i)$.
+			\begin{thm}[King]
+				A representation $V=(V_i,\phi_a)$ is $\theta$-semistable if and only if $\theta(V)=0$, and for all subrepresentations $V'\subset V$, $\theta(V') \geq 0$.
+			\end{thm}
+			\begin{proof}
+				Given a subrepresentation $V'$ of $V$, define a filtration by
+				$$M_i = \begin{cases}
+				0, & i>0\\
+				V'_i, & i=0\\
+				V_i, & i< 0.
+				\end{cases}$$
+				Then this also defines a 1PS $\lambda$ whose limit is this filtration, and $\langle \lambda, \theta \rangle = \theta(M)$. Thus the result follows from Hilbert-Mumford criterion.
+			\end{proof}
+			\begin{thm}[King]
+				The GIT quotient $M(Q,r) = \Rep(Q,r)\sslash G$ is a coarse moduli space for $\theta$ semistable reps of $Q$ with dimension $r$, up to GIT equivalence.
+			\end{thm}
+			\begin{exercise}
+				Consider the quiver with $p+1$ vertices
+				\[\begin{tikzcd}
+					\bullet_{v_0} & \bullet_{v_1} & \bullet_{v_2} & {...} & \bullet_{v_{p+1}}
+					\arrow[from=1-1, to=1-2]
+					\arrow[from=1-2, to=1-3]
+					\arrow[from=1-3, to=1-4]
+					\arrow[from=1-4, to=1-5]
+					\arrow["{n \text{ edges}}"', Rightarrow, from=1-1, to=1-2]
+				\end{tikzcd}\]
+				and dimension vector $r=(1,r_1,r_2,...,r_p)$. Let $\theta = \left(-\sum_{i=1}^p r_i, 1, 1,...,1\right)$, so that $\theta(\Delta)=1$. Find, using King's characterization, the semi-stable locus, and use it to conlude that
+				$$\Rep(Q,r)\sslash G$$
+				is the flag variety of quotients $\C^n \twoheadrightarrow V_1 \twoheadrightarrow ... \twoheadleftarrow V_p$. 
+			\end{exercise}
+			When is $M(Q,r)$ a fine moduli space? To get a universal family, consider the bundle $\C^{r_i}\times \Rep(Q,r) := W_i$ over $\Rep(Q,r)$. If this descends to define a vector bundle on $M(Q,r)$, then it will be a universal family. King shows that on the stable locus of $\Rep(Q,r)$, the stabilizer of the $G$ action is $\Delta$. This does not act trivially on the $W_i$, so we cannot directly apply Kempf's descent lemma, but the idea is not doomed. We need to adjust the action slightly. Suppose we had a character $\chi$ such that 
+			$$\langle \chi, \Delta \rangle = \sum \chi_i r_i = -1.$$
+			Then define a new action $G\circlearrowright W_i$ where $(g_i)_{i\in Q_0} \cdot (v, \phi_a) = (\chi(g)g_i v, \chi(g)g\cdot \phi_a$. This does not change the action on the base $\Rep(Q,r)$. With this new action, the $G$-linearised vector bundle $W_i$ descends to the GIT quotient, meaning $M(Q,r)$ is fine. \vspace{1em}
+			
+			Thus the remaining question is 'When does such a $\chi$ exist?'. When $(r_i)$ is a \emph{primitive lattice element}, meaning it is not an integer multiple of some other lattice element, then $\chi$ exists:
+			\begin{thm}
+				Suppose $r$ is a primitive lattice element. Then  $M^s(Q,r) = \Rep^s(Q,r)\sslash G$ is a fine moduli space for $\theta$-stable representations of $Q$ with dimension $r$.
+			\end{thm}		
+			\begin{exercise}
+				For the quiver $Q$ in the previous exercise, check that the universal bundle built as above is a  topological quotient bundle, and $W_0 = \mathcal{O}$.
+			\end{exercise}
+			\end{document}
 
 
 
