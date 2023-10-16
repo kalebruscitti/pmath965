@@ -20,6 +20,7 @@
 
 
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\OO}{\mathcal{O}}
 \newcommand{\sslash}{\mathbin{/\mkern-4mu/}}
@@ -959,6 +960,76 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 			&= \sum d_i'v_i + \sum a_i v_i
 		\end{align*}
 		However the $d_i'$ are in span$\{w_i\}$, and the left side is in $B\cap \mathbb{Z}^n$, hence equal to $w_k$ for some $k$.
+	\end{proof}
+	Let $M$ be a commutative monoid. Then we will let $\C[M]$ denote the associated \emph{monoid algebra}. For example $\C[\mathbb{Z}] = \C[z_1^{\pm},...,z_i^{\pm}]$. Gordon's lemma tells us that our GIT data defines a submonoid of $\Z^n$, which we call $S$. Then 
+	$$ \bigoplus_{d\geq 0}\Gamma(\C^m, L^{\otimes d}) = \C[S] = \bigoplus_{d\geq 0 }\C[S_d].$$
+	Let $m_1,...,m_s$ denote the monomonials generating $\C[S]$. For each $m_j$, let $I_j = \{i ~|~ (m_j)_i \neq 0 \} \subseteq [m]$, and for any $I\subseteq [m]$ let
+	$$(\C^\ast)^I \times \C^{\overline{I}} := \left\{ (x_i) ~|~ x_i\neq 0 \text{ if } i\in I  \right\}.$$ 
+	\begin{prop}
+		$$V_\omega^{ss} = \bigcup_{j=1}^s (\C^\ast)^{I_j}\times \C^{\overline{I}_j}.$$
+	\end{prop}
+	\begin{proof}
+		Exercise: Roughly speaking, $V^{ss}$ are those $x \in \C[S]$ for which there exists a HIG $f$ with $f(x)\neq 0$. Then evaluate $m_i(x)$ and checck that it vanishes exactly on $(\C^\ast)^{I_j}\times \C^{\overline{I}_j}$. 
+	\end{proof}
+	For example, if $D_1=...=D_m=1$ and $\omega=1$, then the generating monomials are $x_1,...,x_m$ and $I_k = \{k\}$. We can characterize the semistable locus another way. 
+	\begin{defn}
+		Given $I\subset m$, let $\angle_I = \left\{\sum_{i\in I} a_i D_i, ~|~ a_i >0 \in \mathbb{Q}\right\}$, called the \emph{open cone} over $\{D_i\}$. Let 
+		$$\mathcal{A}_\omega =\{I \subset [m] ~|~ \omega \in \angle_I\},$$
+		called the set of \emph{anticones}.
+	\end{defn}
+	\begin{prop}
+		$$V_\omega^{ss} = \bigcup_{I\in \mathcal{A}_\omega} (\C^\ast)^I \times \C^{\overline{I}}.$$
+	\end{prop}
+	\begin{proof}
+		Using the previous proposition, it suffices to show that $I\in \mathcal{A}_\omega \iff I=I_j$ for a generating monomial $m_j$. \vspace{1em}
+
+		If $I=I_j$ for some $m_j$, then $I_j$ records which co-ordinates have non-zero powers in $m_j$; $m_j = \prod_{i\in I_j} x_i^{a_i}$. Furthermore, since $m_j\in S$,
+		$$\sum_{i\in I_j} a_iD_i = d\omega$$
+		and thus, $\omega = \sum \frac{a_i}{d}D_i \in \angle_{I_j}$, and thus $I_j \in \mathcal{A}_\omega$. \vspace{1em}
+
+		On the other hand, if $I \in \mathcal{A}_\omega$, then $\omega = \sum_{i\in I}a_i D_i$ for some $a_i >0 \in \mathbb{Q}$. Hence $d\omega = \omega \sum_{i\in I}a_i' D_i$, with $a_i \in \Z_{\geq 0}$. The monomial $\prod_{i \in I}\omega_i^{da_i}$ is a semi-invariant of weight $d\omega$, and it remains to check that it is a generating monomial of $\C[S]$. 
+	\end{proof}
+	Note: each $I\in\mathcal{A}_\omega$ defines an open subset $D(\prod_{i\in I}x_i)\subset V^{ss}_\omega$, which gives an open affine chart on the quotient.
+
+	\begin{defn}
+		A \emph{toric variety} is an algebraic variety $X$ containing an algebraic torus $T$ as a dense open subset, such that the action $T\circlearrowright T$ extends to an action on $X$.
+	\end{defn}
+	\begin{prop}
+		The GIT quotient $V\sslash K$ is a toric variety.
+	\end{prop}
+	\begin{proof}
+		Let $\tilde{T} = (\C^\ast)^m \subset V^{ss}_\omega \subset V$. Then $(\C^\ast)^n \cong (\tilde{T}/K)\subset V\sslash K$, where $n=\dim V\sslash K$, and the action of $\tilde{T}/K$ on itself naturally extends to the whole space.
+	\end{proof}
+	Example: Weighted Projective Spaces. \vspace*{1em}
+
+	Let $K=\C^\ast$, $D_i = a_i \in \Z_{\geq 0}$ and $\omega =1$. Then $\mathcal{A}_\omega = \{I \subset [m] ~|~ I \neq \emptyset\}$, and $V^{ss} = \C^m - \{0\}$. The toric variety is 
+	$$V\sslash_\omega K = \bP(a_1,...,a_m).$$
+	Note that the co-ordinate points $[l_i] \in \C^m/\C^\ast$ have non-trivial but finite stabilizer. \vspace*{1em}
+	
+	Example: Let $K=(\C^\ast)^2$ and $A=[D_1,...,D_m]$ be the weight matrix
+	$$A = \begin{bmatrix}
+		1 & 1 & 0 & 0 & 1 & 1\\
+		0 & 0 & 1 & 1 & 5 & 6
+	\end{bmatrix}.$$
+	Let $\omega = [1,1]$. Then 
+	$$\mathcal{A}_\omega \left\{
+	\{5\}, \{6\}, \{1,3\}, \{1,4\}, \{2,3\}, \{2,4\}
+	\right\},$$
+	and any unions of these elements. Notably, it does not contain $\{1\}$, $\{2\}$, $\{3\}$, etc. The point $p=(0,0,0,0,1,0)$ is semi-stable because it doesn't vanish in the 5th co-ordinate; the 1PS $(t,t^{-1})\subset K$ acts trivially on $p$, so it is not stable. \vspace*{1em} 
+
+	If we instead set $\omega = [2,1]$, then $\mathcal{A}_\omega$ contains $\{1,\ast\}$ and $\{2,\ast\}$, where $\ast\in \{3,4,5,6\}$. There are no elements with non-trivial stabilizers.
+
+	\begin{prop}
+		$V_\omega^ss = V^s_\omega$ if and only if $\{D_i ~|~ i \in I\}$ contains a $\mathbb{Q}$-basis (of $S$?) for \emph{each} anticone $I\in\mathcal{A}_\omega$.
+	\end{prop}
+	\begin{proof}
+		Suppose $I \in \mathcal{A}_\omega$, but $I$ does not contain a $\mathbb{Q}$-basis. Then there exists a lattice point $(b_1,...,b_r) \in \Z^r$  with $b\neq 0$ and $\langle b_i, D_i\rangle =0$ for all $i\in I$. Let $z = \sum_{i\in I} e_i \in V^{ss}_\omega$. Then $\lambda_b(\C^\ast) \subset \text{Stab}_\C(z)$ so $z$ has a 1-dimensional stabilizer and is hence not stable. \vspace{1em}
+
+		Conversely, suppose that $z\in \C^m$ is strictly semi-stable. Then $z\in(\C^\ast)^I\times \C^{\overline{I}}$ for some $I\in \mathcal{A}_\omega$, and there is a 1PS $\lambda$ such that $\lim_{t\to 0}\lambda(t)z$ exists and $\langle \lambda \omega \rangle =0$. Also
+		$$\lambda(t) z = (t^{\langle \lambda, D_i\rangle}z_i)$$
+		and since the limit exists, $\langle \lambda , D_i \rangle \geq 0$ for all $i\in I$. Then since $I\in\mathcal{A}_\omega$ there exists $a_i$ with $\omega = \sum a_i D_i$. So
+		$$0 = \langle \lambda, \omega \rangle = \sum a_i \langle \lambda, D_i \rangle$$
+		Hence, $\langle \lambda, D_i \rangle = 0$ for all $i\in I$, and hence $\lambda \not\in$ span$\{D_i, i\in I\}$. 
 	\end{proof}
 \end{document}
 
