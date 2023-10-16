@@ -1031,6 +1031,104 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 		$$0 = \langle \lambda, \omega \rangle = \sum a_i \langle \lambda, D_i \rangle$$
 		Hence, $\langle \lambda, D_i \rangle = 0$ for all $i\in I$, and hence $\lambda \not\in$ span$\{D_i, i\in I\}$. 
 	\end{proof}
+
+	\begin{prop}
+		Suppose that for each $I \in \mathcal{A}$, $\{D_i, i\in I\}$ contains a $\Z$-basis. Then $X_\omega$ is smooth.
+	\end{prop}
+	\begin{proof}
+		It suffices to show that $K$ acts trivially on the semi-stable locus, which by the previous proposition is $V^s_\omega$. Let $z\in V^s_\omega$. Then $z\in (\C^\ast)^I\times \C^{\overline{I}}$ for some $I\in\mathcal{A}_\omega$. Say, without loss of generality, that $I=\{1,...,r,...,l\}$, where $D_1,...,D_r$ are the $\Z$-basis. As before, if $t\in K$ then $t\cdot (z_1,...,z_m) = (\chi_{D_i}(t)z_i)_{i=1}^m$. If $t\cdot z = z$ then $\chi_{D_i}(t)=1$ for all $i\in I$. This happens iff $t=1\in K$ (exercise). 
+	\end{proof}
+	\begin{thm}
+		Assume $\omega \neq 0$. Then $X_\omega$ is projective iff $0$ is not contained in the convex hull of the $D_i$.
+	\end{thm}
+	\begin{proof}
+		By definition $\Proj(\C[S])$ is projective over $\Spec(\C[S])$, so we need to show $\C[S]=\C$. This happens iff the only semi-invariants of weight $0$ are cconstants, iff there exists no non-constant monomial, iff there does not exist $\{a_i\}$ greater than zero with $\sum a_i D_i = 0$. \vspace*{1em}
+		
+		Then suppose $X_\omega$ is not projective. There exists $\{a_i\}^m_{i=1}$ such that $\sum a_i D_i =0$ with $a_i>0$. Thus 
+		$$\frac{1}{\sum a_i} \sum a_i D_i = 0$$
+		meaning $0$ is in the convex hull.
+	\end{proof}
+	\subsection*{Gale Duality and Fans}
+	Let $W$ be a vector space over $\mathbb{R}$, spanned by $\beta_1,...,\beta_r$. Consider the exact sequence given by defining $\gamma:\mathbb{R}^r\to W$ by $e_i\to \beta_i$, and $V=\ker\gamma$.
+	\[\begin{tikzcd}
+		V & {\mathbb{R}^r} & W
+		\arrow["\delta", hook, from=1-1, to=1-2]
+		\arrow["\gamma", two heads, from=1-2, to=1-3]
+	\end{tikzcd}\]
+	and the dual sequence
+	\[\begin{tikzcd}
+		{W^\ast} & {\mathbb{R}^r} & {V^\ast}
+		\arrow["{\delta^\ast}", two heads, from=1-2, to=1-3]
+		\arrow["\gamma\ast", hook, from=1-1, to=1-2].
+	\end{tikzcd}\]
+	Define $v_i = \delta^\ast(e_i)$. Then $v\in V$ has $$\delta(v) = \left(
+	\langle v, v_1 \rangle, ... , \langle v, v_r \rangle 	
+	\right)$$, and for $w\in W^\ast$, 
+	$$\gamma^\ast(w) = (\langle \beta_1, w \rangle,...\langle \beta_i, w\rangle).$$
+	\begin{lemma}
+		Let $I\subset [r]$. Then $\{\beta_i ~|~ i\in I\}$ is a basis of $W$ if and only if $\{v_j ~|~ j\in \overline{I}\}$ is a basis of $V^\ast$.
+	\end{lemma}
+	\begin{proof}
+		Suppose that the $\{v_j ~|~ j\in \overline{I}\}$ are a basis of $V^\ast$. Let $\overline{v}_j$ be a dual basis (of $V$). Then 
+		$$\delta(\overline{v}_j) = \sum_{i=1}^r \langle \overline{v}_j, v_i\rangle e_i = e_j + \sum_{i\in I} \langle \overline{v}_j, v_i\rangle e_i,$$
+	and $$0=\gamma\circ\delta(\overline{v}_j) = \beta_j + \sum_{i\in I} \langle \overline{v}_j, v_i\rangle e_i.$$
+	Therefore $\beta_j \in$ span$\{\beta_i ~|~i\in I\}$ for all $j\not\in I$; the $\beta_i$ form a basis. The other direction is essentially the same argument.
+	\end{proof}
+	Remark: We can replace $\mathbb{R}$-basis with $\Z$-basis if the $\beta_i$ and $v_i$ are lattice points.\\
+	Remark: If the $\{\beta_i ~|~ i \in I$ contain a basis, then $\{v_j ~|~ j\in\overline{I}\}$ are contained in an basis.
+
+	\begin{defn}
+		A convex cone $\sigma$ is \emph{strongly convex} if $\sigma \cap (-\sigma) = \{0\}$. 
+	\end{defn}
+	\begin{lemma}
+		Consider the cones 
+		$$C_\beta = \{\beta_i ~|~ i=1,...,m\} \subset W,$$
+		$$C_v = \{v_i ~|~ i=1,...,m\} \subset V^\ast.$$
+		Then if $C_\beta = W$, $C_v$ is strongly convex in $V^\ast$. If $v_i\neq 0, \forall i$,  and $C_v$ is strongly convex, then $C_\beta = W$.
+	\end{lemma}
+	
+	\begin{defn}
+		A fan $\Sigma$ is a collection of cones that is closed under taking intersections and faces.
+	\end{defn}
+	Let $A=[D_1,...,D_m$, $K$, $\omega$ be the GIT data for a toric variety. Then we have an exact sequence defined by $A:\Z^m \to \Z^r$ by $A(e_i) = D_i$; let $M=\ker A$ and write
+	\[\begin{tikzcd}
+		M & {\Z^m} & {\Z^r}
+		\arrow[from=1-1, to=1-2]
+		\arrow["A", from=1-2, to=1-3]
+	\end{tikzcd}\]
+	Let $M^\ast = N$ and $L=(\Z^r)^\vee$. $N$ is a free abelian group of rank $n=m-r$. If we tensor the exact sequence with $\mathbb{R}$ and take duals we have
+	\[\begin{tikzcd}
+		{L_\mathbb{R}} & {\mathbb{R}^m} & {N_\mathbb{R}}
+		\arrow[from=1-1, to=1-2]
+		\arrow["{(e_i\to\rho_i)}", from=1-2, to=1-3]
+	\end{tikzcd}\]
+	\begin{prop}
+		For the sets $I_j$ as defined above, let the anticone over $I_j$ be
+		$$\sigma_{\overline{I}_j} = \{\sum a_i \rho_i ~|~ a_i >0, i\in \overline{I}_j\}.$$
+		Then $\Sigma_\omega = \{\sigma_{overline{I_j}} ~|~ I_j \}$(?) is a fan
+	\end{prop}
+	For proof see notes of Dolgachev. \vspace{1em}
+
+	Exercise: can we substitute $\overline{I}_j$ with $I\in\mathcal{A}_\omega$? \vspace*{1em}
+
+	Now we've defined a way to build a fan $\Sigma_\omega$ out of GIT data for a toric variety. Every fan can be used to build a toric variety directly. Loosely, this is done by gluing together $\Spec(\C[[\sigma^\vee\cap M]]) =: X_\sigma$ along the intersections $\sigma_1\cap \sigma_2$. If $\sigma=\sigma_1\cap\sigma_2$, then $X_\sigma$ is an affine open set in $\sigma_1\cap \sigma_2$. The scheme $X_\Sigma$ built this way is a more general construction, but if your fan $\Sigma=\Sigma_\omega$ for some GIT data, then the toric built this way agrees with the one built by GIT. 
+
+	\begin{defn}
+		A fan $\Sigma$ is called
+		\begin{itemize}
+			\item \emph{complete} if its support is $\mathbb{R}^n$,
+			\item \emph{simplicial} if each cone is simplicial, meaning the rays of the cone are contained in a $\mathbb{Q}$ basis,
+			\item \emph{smooth} if each cone is smooth, meaning the rays of the cone are contained in a $\mathbb{Z}$ basis,
+		\end{itemize}
+	\end{defn}
+	\begin{prop}
+		Let $X_\Sigma$ be the toric variety built from a fan $\Sigma$. Then
+		\begin{itemize}
+			\item $X_\sigma$ is projective iff $\Sigma$ is complete,
+			\item $X_\sigma$ is an orbifold iff $\Sigma$ is simplicial,
+			\item $X_\sigma$ is smooth iff $\Sigma$ is smooth.
+		\end{itemize}
+	\end{prop}
 \end{document}
 
 
