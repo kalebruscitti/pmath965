@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1697482005 "/Users/kdruscit/Documents/code/pmath965/pmath965.tex" "pmath965.pdf" "pmath965" 1697482006 0
-  "/Users/kdruscit/Documents/code/pmath965/pmath965.tex" 1697482004 79057 fb67fe66d2964d3f73c77810b600cb67 ""
+["pdflatex"] 1697665208 "/Users/kdruscit/Documents/code/pmath965/pmath965.tex" "pmath965.pdf" "pmath965" 1697665209 0
+  "/Users/kdruscit/Documents/code/pmath965/pmath965.tex" 1697665207 82895 575ccff5ad87bf16b3512f1b42a34902 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm0900.tfm" 1136768653 1536 c4f439db76ef96a9c53bc437f35ffe20 ""
@@ -43,6 +43,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1248133631 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1248133631 32734 69e00a6b65cedb993666e42eedb3d48f ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1248133631 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1248133631 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1248133631 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
@@ -179,8 +180,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1681745377 4643545 a69824f37b6b485fa46da16b935e4a46 ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1681745442 7885260 1f54870ed9f9c8313101aab6c74b95b6 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "pmath965.aux" 1697482006 1857 728ca8d264ea38219eaf02734d9d3e0f "pdflatex"
-  "pmath965.tex" 1697482004 79057 fb67fe66d2964d3f73c77810b600cb67 ""
+  "pmath965.aux" 1697665209 2012 52bb0cf2dec2668eebdf04147cfe4d51 "pdflatex"
+  "pmath965.tex" 1697665207 82895 575ccff5ad87bf16b3512f1b42a34902 ""
   "quiver.sty" 1694787733 1606 6e061d19851dd595ea9f806dbc16500b ""
   (generated)
   "pmath965.aux"
