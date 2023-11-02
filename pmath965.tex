@@ -21,6 +21,7 @@
 
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\OO}{\mathcal{O}}
 \newcommand{\sslash}{\mathbin{/\mkern-4mu/}}
@@ -31,6 +32,11 @@
 \newcommand{\Rep}{\mathrm{Rep}}
 \newcommand{\Hom}{\text{Hom}}
 \newcommand{\cL}{\mathcal{L}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\Div}{\mathrm{Div}}
+\newcommand{\Pic}{\mathrm{Pic}}
+\newcommand{\CDiv}{\mathrm{CDiv}}
+\newcommand{\Cl}{\mathrm{Cl}}
 %opening
 \title{}
 \author{}
@@ -1178,5 +1184,148 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 		x^{-1} \rightarrow &~x \leftarrow x.
 	\end{align*}
 	Giving exactly $\bP^1$.
+
+	\subsection{Delzant Polytopes}
+	todo 
+
+	\section{Bundles and Divisors}
+	\subsection{Line Bundles}
+	Let $V=\C^m$, $K = (\C^\ast)^k$, $A=[D_1,...,D_m]$ and $\omega$ be the GIT data for a toric variety $X_\omega$. We will consider line bundles on $X_\omega$ built as quotients of line bundles on $\C^m$. Let $U_\omega$ denote the semi-stable locus of $V$, and consider the trivial line bundle
+	$$U_\omega \times \C \to U_\omega$$
+	with $K$-action given by $A$ on $U_\omega$ and $d\in \chi(K)$ on $\C$. Kempf's descent lemma tells us that this linearized trivial line bundle descends to form $L_d\to X_\omega$ if the stabilizers of elements in $U_\omega$ act trivially on the fibres of $U_\omega\times \C$. \vspace{1em}
+
+	Example: Let $m=3, k=1$, $A=[1,1,2]$, $\omega=1$, so that $XX_\omega = \bP(1,1,2)$. Then the anti-cones are all non-empty sets: $\cA_\omega = \{I \subset [m] ~|~ I\neq\emptyset\}$. The point $z=[0,0,0,1] \in \C^3$ has stabiliser
+	$$K_z = \{t ~|~ [0,0,t^2] = [0,0,1]\} = \{\pm 1\} \cong \Z_2$$
+	If we let $U_\omega \times \C$ be linearized by weight $d=1$, then the action of $K_z$ on the fibre at $z$ is non-trivial. However if we pick $d=2$ then the action on the fibre is trivial. Thus the first does not descend to a line bundle, but the second does. \vspace{1em}
+
+	Example: Let $k=2$, $m=5$ and $\omega = [1,1]^T$ and 
+	$$A = \begin{bmatrix}
+		1 & 0 & 0 & 1 & 1 \\
+		0 & 1 & 1 & 1 & 1 \\
+	\end{bmatrix}.$$
+	Then $[0,0,0,0,z_5,z_6]$ is a semistable point, with stabilizer $K_z = \{(\lambda,\lambda^{-1}) ~|~ \lambda \in \C^\ast\} \subset K$. If we take $d=r[1,1]^T$, then the action of $K_z$ on the fibre is $(\lambda, \lambda^{-1})\cdot l \to \lambda^r\lambda^{-r} l = l$, which is trivial, but for any other linearization the action is non-trivial and the bundle will not descend to $X_\omega$. \vspace{1em}
+
+	Can we find an easier criterion for when a weight will descend to define a line bundle? Observe the stabilizer at some semi-stable element $z$ depends ony on the set $I=\{i ~|~ z_i=0\}$, which corresponds to some $\overline{I}\in \cA_\omega$. This means we should be able to find a condition on anti-cones which tells us if a bundle descends. The stabilizer is the kernel of the map $f_{\overline{I}}:K\to (\C^\ast)^{\overline{I}}$ given by 
+	$$\lambda \to (\chi_{D_i}(\lambda))_{i\in\overline{I}}.$$
+	Therefore $d\in \chi(X)$ defines a line bundle if $\forall J\in \cA_\omega$, $d(\ker f_J) = \{e\}$. \vspace{1em}
+	
+	We can rewrite $\ker(f_J) \cong \Z^k/\langle D_i : i\in J\rangle$. The natural surjection $$\Z^k\to \Z^k/\langle D_i : i\in J\rangle$$
+	factors through 
+	$$\Z^k/\langle d\rangle \Z^k/\langle D_i : i\in J\rangle$$
+	if and only if $d\in \langle D_i : i \in J\rangle.$ Therefore
+	\begin{prop}
+		The bundle $U_\omega\times \C$ linearized by $d\in \chi(K)$ descends to a line bundle on $X_\omega$ if and only if, for all $J\in\cA_\omega$, $d\in \langle D_i ~:~ i\in J\rangle$.
+	\end{prop}
+	Furthermore, we can convert this into a statement about the fan $\Sigma_\omega$ defining $X_\omega$. Let $\rho_1,...,\rho_n \in M$ be the rays of the fan, and choose a lift of $d\in \chi(K)=\Z^k$ to $\Z^m$. Recall that the map $\Z^m\to Z^k$ is given by the weight matrix $A$, so a lift is equivalent to a choice $(a_1,...,a_m)\in \Z^m$ such that
+	$$A(a_1,...,a_m) = \sum_{i=1}^m a_i D_i = d.$$ 
+	Associated to such a lift, we can define a map $M\to \Z^m$ by sending $\rho_i\to a_i$. Note that such a map can fail to be well defined. Consider the example of $\bP(1,1,2)$ and linearization $d=1$ from before. From the weight matrix $A$, we can find that the rays of the cone are 
+	\begin{align*}
+	\rho_1 &= [1,1],& \rho_2 &= [-1,1],& \rho_3 &= [0,-1]
+	\end{align*}
+	Pick the lift $(1,2,-1)\in \Z^3$. This is a valid lift because $1(1)+2(1)-1(2) = 1 = d$. Then the map $f:M_\R \to \R$ is defined by
+	\begin{align*}
+		f(\rho_1) &= 1,& f(\rho_2)&=2, & f(\rho_3)&=1.
+	\end{align*}
+	This is not $\R$-linear. For example, if $f$ was linear, then $\rho_3 = -\frac{1}{2}(\rho_1+\rho_2)$, and hence
+	$$f\left(-\frac{1}{2}(\rho_1+\rho_2)\right) = -\frac{1}{2}(f(\rho_1)+f(\rho_2)) = -\frac{3}{2}.$$
+	This contradicts that $f(\rho_3)=1$.
+	\begin{lemma}
+		Let $(a_1,...,a_m)$ and $(b_1,...,b_m)$ be two lifts of $d\in \Z^k$. Let $m_a,m_b:\R^n \to \R$ be the maps defined by $m_a(\rho_i) = a_i$ and $m_b(\rho_i) = b_i$. Then $m_a$ is a linear map if and only if $m_b$ is a linear map.
+	\end{lemma}
+	\begin{proof}
+		By definition, $\sum a_i D_i = \sum b_i D_i = d$. Therefore $\sum (a_i-b_i)D_i =0$, and $(a_1-b_1,...,a_m-b_m) \in \ker(\Z^m \xrightarrow{A} \Z^k)$. By linearity of $A$ this means $m_a\circ A = 0 \iff m_b\circ A =0$. ??? i don't understand
+	\end{proof}		
+	\begin{prop}
+		Let $U_\omega\times \C$ be linearized by a weight $d\in \chi(K)=\Z^k$. This descends to a line bundle on $X_\omega$ if and only if, for all $\sigma_I\in\Sigma_\omega$ and any lift $(a_i)_{i=1}^m$ of $d$, the map $\rho_i\to a_i, i\in I$ defines a linear map. \vspace{1em}
+
+		Equivalently, there exists $m_{\sigma_I} \in M_{\R}$ such that $\langle m_\sigma, \rho_i\rangle = a_i$. 
+	\end{prop}
+	\begin{proof}
+		From the previous proposition, we know the bundle descends if for all $I\in \cA_\omega$, $d\in \langle D_i ~:~ i\in I\rangle$. The cones $\sigma_I$ correspond 1-1 with the anticones $\overline{I}\in \cA_\omega$, so we want to show that 
+		$$d \in \langle D_i ~:~ i\in \overline{I} \rangle \iff (\rho_i\to a_i)_{i\in I} \text{ is a linear map.}$$
+		If $d\in \langle D_i : i\in\overline{I}\rangle$,  then $d=\sum_{i\in \overline{I}} a_iD_i$ for some $a_i\in \Z$. Therefore letting $a_i = 0$ for $i\in I$, $(a_i)_{i=1}^m$ is a lift of $d$. The corresponding map is the zero map, which is linear. \vspace{1em}
+		
+		On the other hand, if $d=\sum_{i=1}^1 a_iD_i$ is a lift defining a linear map, then let 
+		$$B_I := \begin{bmatrix}
+			\rho_{i_1}\\
+			\dots\\
+			\rho_{i_k}\\
+		\end{bmatrix}_{i_j\in I}$$
+		The linearity means that
+		$$B_I^T \begin{bmatrix}
+			b_1\\
+			\dots\\
+			b_n
+		\end{bmatrix}=0 \implies [a_1,...,a_m]\cdot[b_1,...,b_m]=0$$
+		I.e. $\ker(B_I^T)\subset\ker([a_1,...,a_m])$. Moreover
+		$$\ker(B_I^T) = \text{Im}(A^T) \cap \langle e_i ~|~ i\in I\rangle^T = [\ker(A)+\langle e_i ~|~ i\in I\rangle]^T .$$
+		Also, $[a_1,...,a_m]^T \in (\ker A+\langle e_i ~|~ i\in I\rangle)$. Thus $d=\sum a_i D_i = \sum_{k\in I} b_kD_k$, meaning $d\in \langle D_i ~|~ i\in I\rangle$.
+	\end{proof}
+	\begin{definition}
+		An \emph{integral support function} is a continuous map $g:N \to \R$ such that 
+		\begin{enumerate}
+			\item $g$ is linear on each cone,
+			\item $g$ takes integral values on $|\Sigma_\omega|\cap \Z^n$.
+		\end{enumerate}
+	\end{definition}
+	With this definition, the previous proposition says that line bundles over $X_\omega$ are defined by integral support functions on $\Sigma_\omega$. If one drops condition 2, then instead of line bundles one obtains $\mathbb{Q}$-Cartier divisors up to linear equivalence. \vspace{1em}
+
+	Given an integral support function $g$ on a fan $\Sigma_\omega\subset \R^n$, then we can consider the graph of $g$, $\Sigma^g_\omega  \subset \R^n\times \R$. This defines a new fan, with rays $$\{\rho_i' = (\rho_i, g(\rho_i))\}\cup \{\rho_{m+1}'=(\vec{0},1)\}$$ and cones $$\sigma_i\in\Sigma^g_\omega \iff \sigma_{I-{m_1}} \in \Sigma_\omega.$$
+	The projection map $\Z^n\times \Z \to \Z^n$ defines a map of fans $\Sigma_\omega^g\to \Sigma_\omega$, and hence induces a map of toric varieties. We claim that the toric variety corresponding to $\Sigma^g_\omega$ is the total space of the line bundle defined by $g$.
+	\begin{prop}
+		Let $g$ be an integral support function $g$ on a fan $\Sigma_\omega$. Let $X_\omega^g$ be the fan associated to the graph fan $\Sigma^g_\omega$. Then the induced map of toric varieties is a line bundle $X_{\omega}^g\to X_\omega$.
+	\end{prop}
+
+	\subsection{Weil and Cartier Divisors}
+	Let $X$ be a normal irreducible variety. A prime divisor $D\subset X$ is an irreducible subvariety with codimension 1. Define the sheaf $\mathcal{O}_{X,D}$ by
+	$$\mathcal{O}_{X,D}(U) = \mathcal{O}_X(U\cap D).$$
+	Then $\mathcal{O}_{X,D}(X)$ is a discrete valuation ring, with valuation $v_D(f)$ equal to the order of vanishing along $D$. Let $\Div(X)$ denote the free abelian group over the prime divisors. 
+
+	\begin{definition}
+		A \emph{Weil divisor} is an element of $\Div(X)$. If $D=\sum a_i D_i$, where $D_i$ are prime divisors and all $a_i >0$, then we say $D$ is \emph{effective}.
+	\end{definition}
+	\begin{definition}
+		Let $f \in \mathcal{O}_X$. Then $\Div(f):=\sum_{\text{prime divisors }D}v_D(f)D$. Let $\Div(\mathcal{O}_x):=\Div_0(X)$, called the group of principal divisors. \vspace{1em}
+
+		We say $D_1$ is \emph{linearly equivalent} to $D_2$ or write $D_1\sim D_2$ if $D_1-D_2 \in \Div_0(X)$. 
+	\end{definition}
+	\begin{definition}
+		A Weil divisor is called \emph{Cartier} if it is locally principal. That is, there exists an open cover $\{U_i\}$ of $X$ with $D|_{U_i} = \Div(f_i)$ for some $f_i \in \mathcal{O}_X(U_i)$. We denote the group of Cartier divisors by $\CDiv(X)\subset \Div(X)$. 
+	\end{definition}
+	\begin{definition}
+		The \emph{class group} of $X$ is
+		$$\Cl(X) := \Div(X)/\Div_0(X).$$
+		The \emph{Picard group} of $X$ is 
+		$$\Pic(X) := \CDiv(X)/\Div_0(X).$$
+	\end{definition}
+	\begin{remark}
+		To any Weil divisor $D$ we can associate a coherent sheaf $\OO_X(D)$ by
+		$$\OO_X(D)(U) = \{f\in \OO(X) ~|~ \Div(f)+D|_U \geq 0 \}.$$
+		If $D_1$ and $D_2$ are linearly equivalent, then $\OO_X(D_1) \cong \OO_X(D_2)$. If $D$ is Cartier, then $\OO_X(D)$ will also be locally free, hence defining a line bundle. This means that $\Pic(X)$ can also be viewed as the group of isomorphism classes of line bundles on $X$.
+	\end{remark}
+	Now we will restrict our focus back to toric varieties. Let $A=[D_1,...,D_m]$, $K$, $\omega$ be GIT data for a quotient of $V=\C^m$. Let $S=\{i \in [m] ~|~ \{i\}^c \not\in \cA_\omega \}$, and suppose $S=\emptyset$. Consider the set $\{x_i=0\}\cap V^{ss}$. It is closed, $K$ invariant and the image in the quotient will be a prime divisor $\tilde{D}_i$. Now let $T\cong(\C^\ast)^{m-k}$ be the torus inside $X_\omega$, and let $\chi_m\in \chi(T)$. This defines a non-vanishing function $N\to \R$ by $\langle m, \cdot \rangle$. 
+	\begin{prop}
+		The valuation of $m$ along $\tilde{D}_i$ is given by
+		$$v_{\tilde{D}_i}(m) = \langle m, \rho_i\rangle.$$
+	\end{prop}
+	\begin{proof}
+		We can pick a basis of $N$ in which $\rho_i=e_i$. Our assumption that $S=\emptyset$ means that associated to $\rho_i$ is an affine open set $U_i$ corresponding to the anticone $\{i\}^c$;
+		$$U_i = \left[
+			(\C^\ast)^{\{i\}^c} \times \C^{\{i\}} 
+		\right]/K \cong \C\times (\C^\ast)^{n-1}$$
+		WLOG we set $i=1$. Then 
+		$$U_i = \Spec(x_1,x_2^{\pm},...,x_n^{\pm}).$$
+		Let $f\in \C[x_1,...,x_n]$. Then $v_{\tilde{D}_i}(f) = l \in \Z$ and we can write $f=u^l \frac{g}{h}$, with $g/h \in \C[x_2^\pm,...,x_m^\pm]$. We can also write 
+		$$\chi^m = \prod_{i=1}^k x_i^{\langle m, r_i\rangle} = x_1^{\langle m, \rho_i\rangle}\prod_{i=2}^k x_i^{\langle m_i, e_i\rangle}.$$
+		Letting $f=\chi^m$ and comparing these equations, we see $\langle m_i, e_i\rangle = l = v_{\tilde{D}_i}(\chi^m)$.
+	\end{proof}
+	\begin{prop}[See CLS]
+		Let $\chi^m \in \chi(K)$. Then $\Div(\chi^m) = \sum \langle m, \rho_i\rangle \tilde{D}_i$.
+	\end{prop}
+	Let $\Div_T(X_\omega)$ denote the $T$-invariant divisors. 
+	\begin{exercise}
+	Show that $\Div_(X_\omega) = \sum_{i=1}^m \Z \tilde{D}_i$.
+	\end{exercise}
+
 \end{document}
 
