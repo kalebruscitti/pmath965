@@ -1326,6 +1326,77 @@ Consider $G\circlearrowright X$, with $X$ a projective variety. We can think of 
 	\begin{exercise}
 	Show that $\Div_(X_\omega) = \sum_{i=1}^m \Z \tilde{D}_i$.
 	\end{exercise}
+	\begin{theorem}
+		There exists a short exact sequence
+		$$\chi(T) \hookrightarrow \Div_T(X_\omega) \twoheadrightarrow \Cl(X_\omega).$$
+	\end{theorem}
+	\begin{proof}
+		There's an exact sequence (CLS 4.0.20) 
+		$$\Div_T(X_\omega)\to \Cl(X_\omega)\xrightarrow{\pi}\Cl(T)\to 0$$
+		Moreover, $\Cl(T)=0$. Hence for exactness it remains to show that $\chi(T)=\ker(\pi)$. Certainly, $\chi(T)\subset \ker(\pi)$, since $\Div(\chi^m)\in \Div_T(X_\omega) = \ker\pi$. \vspace{1em}
+		
+		Suppose that $\pi(D)=0$ for some $D\in \Cl(X_\omega)$. By exactness, $D\in \Div_T(X_\omega)$, so $D=\Div(f)$ for some $f\in \C[X_\omega]^\ast$. This means the support of $D$ does not intersect $T$, i.e. $\Div(f)|_T = 0$. Hence, we can say $f\in \C[T]^\ast$, meaning $f$ is a multiple of $\chi^m$ for some $m$; $\ker\pi\subset \chi(T)$. \vspace{1em}
 
+		Finally, we need to show that $\iota:\chi(T)\to \Div_T(X_\omega)$ is injective. 
+		$$\iota(\chi_m) = \sum \langle m, \rho_i\rangle D_i =0$$
+		Therefore $\langle m, \rho_i\rangle =0$ for each $\rho_i$. The $\rho_i$ are a spanning set of $M$, hence $m=0$.
+	\end{proof}
+
+	Fix a divisor $D=\sum a_i\tilde{D}_i$, and define $P_D =\{m\in M_\R ~|~ \langle m, \rho_i \rangle \geq -a_i \forall i\}$. $P_D$ might not be a polytope, however its integer points are still important. 
+	\begin{prop}
+		$$\Gamma(X_\omega, \OO_{X_\omega}(D)) = \bigoplus_{m\in P_D\cap M} \C\cdot \chi^m.$$
+	\end{prop}
+	\begin{proof}
+		Suppose $f\in \Gamma(X_\omega, \OO_{X_\omega}(D))$. Then by definition, $\Div(f) + D \geq 0$. However 
+		$$(\Div(f)+D)_T = \Div(f), \implies \Div(f)\geq 0$$
+		Therefore, by the previous theorem? (TODO: ask Elana how this proof goes)
+	\end{proof}
+	Example: Consider the \emph{Hirzebruch surface} $H_2$, defined by the GIT weight matrix 
+	\begin{align*}
+		A &= \begin{bmatrix}
+			0 & 1 & 0 & 1\\
+			1 & 0 & 1 & 2
+		\end{bmatrix}, & 
+		B^T&= \begin{bmatrix}
+			-1 & 2\\
+			0 & 1\\
+			1 & 0\\
+			0 & -1
+		\end{bmatrix}.
+	\end{align*}
+	With stability condition $\omega = (\omega_1,\omega_2)$ with $2\omega_2 > \omega_1$. (TODO add picture of fan and secondary fan) The minimal anticones are
+	$$\cA_\omega \supset \{ (1~4), (3~4), (1~2), (2~3)\}.$$
+	Each anticone contains a $\Z$-basis of $N$, and hence all divisors are Cartier, and any choice of linearizing weight $d$ will define a line bundle. \vspace{1em}
+	
+	Consider the divisor $D_a:= a\tilde{D}_1 + \tilde{D}_2$ for some $a\in\Z$. Define $P_a$ from this divisor; 
+	\begin{align*}
+		m\in P_a &\iff (-m_1+2m_2 \geq -a) \land (m_2\geq -1) \land (m_1\geq 0)\land (-m_2\geq 0).
+	\end{align*}
+	When $a\geq 3$, $P_a$ is a polytope whose corresponding toric variety recovers $H_2$ exactly. However if $a=2$, then the polytope is a triangle, which defines $\bP^2$. If $a=1$, then $P_a$ is no longer a lattice polytope. These choices of $a$ correspond to moving throuh the chambres of the secondary fan. In summary, $P_D$ has a normal fan which recovers the original fan whenever $\sum a_iD_i \in \bigcap_{I\in \cA_\omega}\angle_I$, or equivalently whenever $\sum a_i D_i$ defines an ample line bundle.
+
+	\begin{thm}
+		\begin{enumerate}
+			\item $X_\omega$ is smooth $\iff$ $\Pic(X_\omega) = \Cl(X_\omega)$.
+			\item $X_\omega$ is simplicial $\iff$ every Weil divisor is $\mathbb{Q}$-Cartier.
+		\end{enumerate}
+	\end{thm}
+
+	\subsection{Homogeneous Co-ordinate Ring}
+	Consider GIT data $A=[D_1,...,D_m]$, $K=(\C^\ast)^k$ and $\omega$. We know the GIT quotient is defined by
+	$$\Proj(\bigoplus_{l \geq 0} \C[x_1,...,x_m]^{l \omega})$$
+	Let $R= \bigoplus_{l \geq 0} \C[x_1,...,x_m]^{l\omega}$, and for any $\chi \in \chi(K)$, let $R_\chi$ denote the $\chi$-graded part of $R$. For example, for $\bP^2\times \bP^2$ whose weight matrix is $A=\begin{bmatrix}
+		1 & 1 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 1 & 1 \\
+	\end{bmatrix}$ with linearization $\omega = (1,1)$, we can consider things like $R_{\begin{bmatrix}3\\2\end{bmatrix}}$. This ring $R$ is called the \emph{homogeneous co-ordinate ring} or the \emph{Cox ring} of $X_\omega$, and it behaves like the co-ordinate ring of $\bP^n$. \vspace{1em}
+
+	The one may ask: When does $\{f=0\}\subset X_\omega$ make sense for some $f\in \C[x_1,...,x_m]$? Well, this will make sense if $\{f=0\} \subset \C^m$ passes to the GIT quotient, which requires that $\lambda\cdot f = \chi(\lambda) f$. Let $I\subset R$ be a homogeneous ideal. Let $\pi:(\C^m)^{ss}\to X_\omega$ be the quotient map, and let 
+	$$V(I) = \{y\in X_\omega ~|~ \exists x\in \pi^{-1}(y), f(x)=0 \forall f\in I\}$$
+	Then we have:
+	\begin{prop}
+		\begin{itemize}
+			\item $V(I)$ is a closed subvariety of $X_\omega$,
+			\item All closed varieties are equal to $V(I)$ for some homogeneous ideal $I$.
+		\end{itemize}
+	\end{prop}
 \end{document}
 
